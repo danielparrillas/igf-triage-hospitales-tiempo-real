@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { connect } from 'socket.io-client'
 
-const socket = connect('http://localhost:4000')
+const socket = connect(import.meta.env.VITE_API_URL)
 
 function App() {
   const [room, setRoom] = useState('')
