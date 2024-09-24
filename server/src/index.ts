@@ -5,6 +5,7 @@ import cors from 'cors'
 import path from 'path'
 import { handleSocketConnection } from './controllers/socketController'
 import * as dotenv from 'dotenv'
+import authRouter from './routes/authRoutes'
 
 dotenv.config({ path: '../.env' })
 
@@ -18,6 +19,9 @@ const io = new Server(server, {
 handleSocketConnection(io)
 
 app.use(cors())
+
+//Rutas
+app.use('/api/auth', authRouter)
 
 // 1. Configura Express para servir archivos estáticos del build de React
 if (process.env.NODE_ENV === 'production') {
