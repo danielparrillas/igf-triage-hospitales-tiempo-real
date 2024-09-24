@@ -6,8 +6,8 @@
   "scripts": {
     "dev": "concurrently \"npm start --prefix server\" \"npm run dev --prefix client\"",
     "postinstall": "npm install --prefix client && npm install --prefix server",
-    "build": "npm run build --prefix client",
-    "start": "node server/index.js"
+    "build": "npm run build --prefix server && npm run build --prefix client",
+    "start": "npm start --prefix server"
   },
   "keywords": [],
   "author": "",
