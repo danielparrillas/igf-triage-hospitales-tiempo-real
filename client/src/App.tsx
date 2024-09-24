@@ -1,40 +1,47 @@
-import { useState, useEffect } from 'react';
-import io from 'socket.io-client';
+import { useState, useEffect } from 'react'
+import { connect } from 'socket.io-client'
 
-const socket = io.connect('http://localhost:4000');
+const socket = connect('http://localhost:4000')
 
 function App() {
-  const [room, setRoom] = useState('');
-  const [message, setMessage] = useState('');
-  const [messages, setMessages] = useState([]);
+  const [room, setRoom] = useState('')
+  const [message, setMessage] = useState('')
+  const [messages, setMessages] = useState<string[]>([])
 
   // Unirse a una sala
   const joinRoom = () => {
     if (room !== '') {
-      socket.emit('join_room', room);
+      socket.emit('join_room', room)
     }
-  };
+  }
 
   // Enviar mensaje
   const sendMessage = () => {
     if (message !== '') {
       const messageData = {
         room,
-        message,
-      };
+        message
+      }
 
-      socket.emit('send_message', messageData);
-      setMessages([...messages, message]);
-      setMessage(''); // Limpiar el campo del mensaje
+      socket.emit('send_message', messageData)
+      //? setMessages([...messages, message]);
+      setMessage('') // Limpiar el campo del mensaje
     }
-  };
+  }
 
   // Escuchar los mensajes de la sala
   useEffect(() => {
-    socket.on('message', (data) => {
-      setMessages((prevMessages) => [...prevMessages, data]);
-    });
-  }, [socket]);
+    const handleMessage = (data: string) => {
+      setMessages((prevMessages) => [...prevMessages, data])
+    }
+
+    socket.on('message', handleMessage)
+
+    // Limpiar el efecto cuando el componente se desmonte o cambie de estado
+    return () => {
+      socket.off('message', handleMessage)
+    }
+  }, [])
 
   return (
     <div className="p-10">
@@ -48,7 +55,7 @@ function App() {
         <button onClick={joinRoom}>Unirse a la sala</button>
       </div>
 
-      <div className='p-4'>
+      <div className="p-4">
         <input
           type="text"
           placeholder="Mensaje..."
@@ -65,7 +72,7 @@ function App() {
         ))}
       </div>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
