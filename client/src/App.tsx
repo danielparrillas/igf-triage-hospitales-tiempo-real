@@ -8,6 +8,8 @@ function App() {
   const [message, setMessage] = useState('')
   const [messages, setMessages] = useState<string[]>([])
 
+  console.log(import.meta.env.VITE_API_URL)
+
   // Unirse a una sala
   const joinRoom = () => {
     if (room !== '') {

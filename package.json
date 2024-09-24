@@ -4,10 +4,10 @@
   "description": "A real-time application for classifying and prioritizing patients in national hospitals. It assigns a numeric code upon patient entry and allows healthcare professionals to manage care based on urgency. Features include configurable priority rules and real-time monitoring of triage statistics.",
   "main": "index.js",
   "scripts": {
-    "dev": "concurrently \"npm start --prefix server\" \"npm run dev --prefix client\"",
-    "postinstall": "npm install --prefix client && npm install --prefix server",
+    "dev": "concurrently \"npm run dev --prefix server\" \"npm run dev --prefix client\"",
     "build": "npm run build --prefix server && npm run build --prefix client",
-    "start": "npm start --prefix server"
+    "start": "npm start --prefix server",
+    "postinstall": "npm install --prefix client && npm install --prefix server"
   },
   "keywords": [],
   "author": "",
