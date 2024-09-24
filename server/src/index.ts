@@ -2,6 +2,8 @@ import express, { Request, Response } from 'express'
 import http from 'http'
 import { Server } from 'socket.io'
 import cors from 'cors'
+import path from 'path'
+import { handleSocketConnection } from './controllers/socketController'
 
 const app = express()
 const server = http.createServer(app)
@@ -10,29 +12,22 @@ const io = new Server(server, {
     origin: '*'
   }
 })
+handleSocketConnection(io)
 
 app.use(cors())
 
-io.on('connection', (socket) => {
-  console.log('Usuario conectado:', socket.id)
+// 1. Configura Express para servir archivos estáticos del build de React
+if (process.env.NODE_ENV === 'production') {
+  const clientBuildPath = path.join(__dirname, '../../client/dist') // Ajusta el path según tu estructura
+  app.use(express.static(clientBuildPath))
 
-  socket.on('join_room', (room: string) => {
-    socket.join(room)
-    console.log(`Usuario con ID: ${socket.id} se unió a la sala: ${room}`)
-
-    socket.emit('message', `Bienvenido a la sala ${room}`)
+  // 2. Servir index.html para cualquier ruta no reconocida (Single Page Application - SPA)
+  app.get('*', (req: Request, res: Response) => {
+    res.sendFile(path.resolve(clientBuildPath, 'index.html'))
   })
+}
 
-  socket.on('send_message', (data: { room: string; message: string }) => {
-    io.to(data.room).emit('message', data.message)
-  })
-
-  socket.on('disconnect', () => {
-    console.log('Usuario desconectado:', socket.id)
-  })
-})
-
-const PORT = 4000
+const PORT = process.env.PORT || 4000
 server.listen(PORT, () =>
   console.log(`Servidor corriendo en el puerto ${PORT}`)
 )
