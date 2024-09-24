@@ -12,11 +12,34 @@ model User {
   email    String   @unique
   name     String?
   password String?
-  role     Int?  // 1: admin, 2: receptionist, 3: doctor
+  role     Int      @default(0)  // 0: user, 1: admin
 }
 
 model Hospital {
   id       Int      @id @default(autoincrement())
-  name     String
-  address  String
+  nombre     String
+  direccion  String
+  empleados Empleado[]
+  ingresos  Ingreso[]
+}
+
+model Empleado {
+  id           Int      @id @default(autoincrement())
+  code         String
+  hospitalId   Int
+  hospital     Hospital @relation(fields: [hospitalId], references: [id])
+  role         Int      @default(0)  // 2: doctor, 3: receptionist
+  atenciones   Ingreso[]
+}
+
+model Ingreso {
+  id            Int           @id @default(autoincrement())
+  paciente      String
+  dateAdmitted  DateTime      @default(now())
+  razon         String
+  urgencia      Int           // 1: Resucitación, 2: Emergencia, 3: Urgencia, 4: Urgencia Menor, 5: Sin Urgencia
+  hospitalId    Int
+  hospital      Hospital      @relation(fields: [hospitalId], references: [id])
+  empleadoId    Int?
+  encargado     Empleado?     @relation(fields: [empleadoId], references: [id])
 }
