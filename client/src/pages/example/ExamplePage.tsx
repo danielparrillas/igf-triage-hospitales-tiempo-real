@@ -3,7 +3,7 @@ import { connect } from 'socket.io-client'
 
 const socket = connect(import.meta.env.VITE_API_URL)
 
-function App() {
+export default function ExamplePage() {
   const [room, setRoom] = useState('')
   const [message, setMessage] = useState('')
   const [messages, setMessages] = useState<string[]>([])
@@ -76,5 +76,3 @@ function App() {
     </div>
   )
 }
-
-export default App
