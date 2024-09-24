@@ -1,4 +1,4 @@
-import express from 'express'
+import express, { Request, Response } from 'express'
 import http from 'http'
 import { Server } from 'socket.io'
 import cors from 'cors'
@@ -16,14 +16,14 @@ app.use(cors())
 io.on('connection', (socket) => {
   console.log('Usuario conectado:', socket.id)
 
-  socket.on('join_room', (room) => {
+  socket.on('join_room', (room: string) => {
     socket.join(room)
     console.log(`Usuario con ID: ${socket.id} se unió a la sala: ${room}`)
 
     socket.emit('message', `Bienvenido a la sala ${room}`)
   })
 
-  socket.on('send_message', (data) => {
+  socket.on('send_message', (data: { room: string; message: string }) => {
     io.to(data.room).emit('message', data.message)
   })
 
