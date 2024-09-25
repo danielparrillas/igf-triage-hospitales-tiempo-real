@@ -4,7 +4,7 @@ import { urgenciaValuesLabel } from '../../../types/urgenciaEnum'
 import { postIngreso } from '../../../services/ingresoService'
 
 export function IngresoDialogNewForm() {
-  const [open, setOpen] = useState(true)
+  const [open, setOpen] = useState(false)
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -29,60 +29,63 @@ export function IngresoDialogNewForm() {
   }
 
   return (
-    <dialog open={open}>
-      <article>
-        <header>
-          <button rel="prev" onClick={() => setOpen(false)}></button>
-          <p>
-            <strong>🗓️ Nuevo ingreso</strong>
-          </p>
-        </header>
-        <form onSubmit={handleSubmit}>
-          <fieldset>
-            <label>
-              Paciente
-              <input
-                name="paciente"
-                placeholder="Nombre de paciente"
-                required
-              />
-            </label>
-            <label>
-              DUI
-              <input name="dui" placeholder="DUI" required />
-            </label>
-            <label>
-              Fecha
-              <input
-                type="datetime-local"
-                name="fecha"
-                defaultValue={getLocalDateTimestamp()}
-                required
-              />
-            </label>
-            <label>
-              Urgencia
-              <select name="urgencia" required>
-                {urgenciaValuesLabel.map(({ value, label }) => (
-                  <option key={value} value={value}>
-                    {label}
-                  </option>
-                ))}
-              </select>
-            </label>
-            <label>
-              Razón
-              <textarea
-                name="razon"
-                placeholder="Razón de ingreso"
-                required
-              ></textarea>
-            </label>
-          </fieldset>
+    <div>
+      <button onClick={() => setOpen(true)}>Nuevo ingreso</button>
+      <dialog open={open}>
+        <article>
+          <header>
+            <button rel="prev" onClick={() => setOpen(false)}></button>
+            <p>
+              <strong>🗓️ Nuevo ingreso</strong>
+            </p>
+          </header>
+          <form onSubmit={handleSubmit}>
+            <fieldset>
+              <label>
+                Paciente
+                <input
+                  name="paciente"
+                  placeholder="Nombre de paciente"
+                  required
+                />
+              </label>
+              <label>
+                DUI
+                <input name="dui" placeholder="DUI" required />
+              </label>
+              <label>
+                Fecha
+                <input
+                  type="datetime-local"
+                  name="fecha"
+                  defaultValue={getLocalDateTimestamp()}
+                  required
+                />
+              </label>
+              <label>
+                Urgencia
+                <select name="urgencia" required>
+                  {urgenciaValuesLabel.map(({ value, label }) => (
+                    <option key={value} value={value}>
+                      {label}
+                    </option>
+                  ))}
+                </select>
+              </label>
+              <label>
+                Razón
+                <textarea
+                  name="razon"
+                  placeholder="Razón de ingreso"
+                  required
+                ></textarea>
+              </label>
+            </fieldset>
 
-          <input type="submit" value="Guardar" />
-        </form>
-      </article>
-    </dialog>
+            <input type="submit" value="Guardar" />
+          </form>
+        </article>
+      </dialog>
+    </div>
   )
 }
