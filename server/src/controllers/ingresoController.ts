@@ -1,6 +1,7 @@
 import { Request, Response } from 'express'
 import { Ingreso } from '@prisma/client'
 import prisma from '../utils/db'
+import { Server } from 'socket.io'
 
 export const getAll = async (req: Request, res: Response): Promise<void> => {
   const {} = req.params
@@ -16,7 +17,10 @@ export const getAll = async (req: Request, res: Response): Promise<void> => {
   }
 }
 
-export const save = async (req: Request, res: Response): Promise<void> => {
+export const save = async (
+  req: Request & { io?: Server },
+  res: Response
+): Promise<void> => {
   const { body } = req
   try {
     const ingreso = await prisma.ingreso.create({

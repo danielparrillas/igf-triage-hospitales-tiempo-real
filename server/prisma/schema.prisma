@@ -23,6 +23,6 @@ model Ingreso {
   fecha         DateTime      @default(now())
   razon         String
   urgencia      Int           // 1: Resucitación, 2: Emergencia, 3: Urgencia, 4: Urgencia Menor, 5: Sin Urgencia
-  encargadoId   Int
+  encargadoId   Int?
   encargado     User?          @relation(fields: [encargadoId], references: [id])
 }

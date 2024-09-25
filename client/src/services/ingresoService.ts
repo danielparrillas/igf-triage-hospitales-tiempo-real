@@ -5,7 +5,10 @@ export const getIngresos = async (params?: {
   urgencia: boolean
 }): Promise<Ingreso[]> => {
   try {
-    const { data } = await axios.get('/api/ingresos', { params })
+    const { data } = await axios.get(
+      `${import.meta.env.VITE_API_URL}/ingresos`,
+      { params }
+    )
     if (Array.isArray(data)) {
       return data
     } else {
@@ -13,6 +16,19 @@ export const getIngresos = async (params?: {
     }
   } catch (error) {
     console.error('Error al obtener los ingresos:', error)
+    throw error
+  }
+}
+
+export const postIngreso = async (ingreso: unknown): Promise<Ingreso> => {
+  try {
+    const { data } = await axios.post(
+      `${import.meta.env.VITE_API_URL}/ingresos`,
+      ingreso
+    )
+    return data
+  } catch (error) {
+    console.error('Error al guardar el ingreso:', error)
     throw error
   }
 }

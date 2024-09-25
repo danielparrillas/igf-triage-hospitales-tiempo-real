@@ -30,3 +30,26 @@ export const UrgenciaColor = {
   [UrgenciaEnum.UrgenciaMenor]: '#16a34a',
   [UrgenciaEnum.SinUrgencia]: '#2563eb'
 }
+
+export const urgenciaValuesLabel = [
+  {
+    value: UrgenciaEnum.Resucitacion,
+    label: '🔴 Resucitación'
+  },
+  {
+    value: UrgenciaEnum.Emergencia,
+    label: '🟠 Emergencia'
+  },
+  {
+    value: UrgenciaEnum.Urgencia,
+    label: '🟡 Urgencia'
+  },
+  {
+    value: UrgenciaEnum.UrgenciaMenor,
+    label: '🟢 Urgencia Menor'
+  },
+  {
+    value: UrgenciaEnum.SinUrgencia,
+    label: '🔵 Sin Urgencia'
+  }
+]

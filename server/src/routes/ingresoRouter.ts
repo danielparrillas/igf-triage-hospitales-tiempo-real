@@ -1,8 +1,9 @@
 import { Router } from 'express'
-import { getAll } from '../controllers/ingresoController'
+import { getAll, save } from '../controllers/ingresoController'
 
 const router = Router()
 
 router.get('/', getAll)
+router.post('/', save)
 
 export default router
