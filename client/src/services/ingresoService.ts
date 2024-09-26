@@ -32,3 +32,19 @@ export const postIngreso = async (ingreso: unknown): Promise<Ingreso> => {
     throw error
   }
 }
+
+export const putIngreso = async (
+  id: number,
+  ingreso: unknown
+): Promise<Ingreso> => {
+  try {
+    const { data } = await axios.put(
+      `${import.meta.env.VITE_API_URL}/ingresos/${id}`,
+      ingreso
+    )
+    return data
+  } catch (error) {
+    console.error('Error al editar el ingreso:', error)
+    throw error
+  }
+}

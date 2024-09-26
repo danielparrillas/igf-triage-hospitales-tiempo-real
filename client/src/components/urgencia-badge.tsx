@@ -14,7 +14,7 @@ export default function UrgenciaBadge({ urgencia }: Props) {
       style={{
         backgroundColor: UrgenciaColor[urgencia]
       }}
-      className="text-sm px-2 py-1 text-white rounded-full font-semibold text-center"
+      className="px-2 py-1 text-white rounded-full font-semibold text-center text-nowrap"
     >
       {UrgenciaEnumLabels[urgencia]}
     </span>

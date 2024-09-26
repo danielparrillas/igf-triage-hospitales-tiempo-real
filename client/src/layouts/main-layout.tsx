@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { Toaster } from 'sonner'
 
 interface Props {
   children: React.ReactNode
@@ -7,6 +8,7 @@ interface Props {
 export function MainLayout({ children }: Props) {
   return (
     <div className="bg-purple-50 h-screen">
+      <Toaster richColors />
       <nav className="bg-purple-800/70 px-4 shadow-lg sticky top-0">
         <ul>
           <li>

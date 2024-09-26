@@ -6,9 +6,11 @@ import { useSocket } from '../../hooks/useSocket'
 import { toast } from 'sonner'
 import UrgenciaBadge from '../../components/urgencia-badge'
 import { MainLayout } from '../../layouts/main-layout'
+import { IngresoDialogEditForm } from './components/ingreso-dialog-edit-form'
 
 export default function RecepcionPage() {
   const [ingresos, setIngresos] = useState<Ingreso[]>([])
+  const [ingresoEdit, setIngresoEdit] = useState<Ingreso | null>(null)
   const socket = useSocket()
 
   useEffect(() => {
@@ -33,8 +35,25 @@ export default function RecepcionPage() {
       console.log('Nuevo ingreso registrado', ingreso)
     })
 
+    socket.on('editar_ingreso', (ingreso: Ingreso) => {
+      setIngresos((prevIngresos) =>
+        prevIngresos.map((ing) => (ing.id === ingreso.id ? ingreso : ing))
+      )
+      toast.message(`Ingreso actualizado: ${ingreso.paciente}`, {
+        description: (
+          <div className="mt-2 flex flex-col">
+            <UrgenciaBadge urgencia={ingreso.urgencia} />
+            <time className="text-right text-slate-500 mt-1">
+              {new Date(ingreso.fecha).toLocaleString()}
+            </time>
+          </div>
+        )
+      })
+    })
+
     return () => {
       socket.off('nuevo_ingreso')
+      socket.off('editar_ingreso')
     }
   }, [socket])
   return (
@@ -52,9 +71,10 @@ export default function RecepcionPage() {
               <th scope="col">Fecha</th>
               <th scope="col">Paciente</th>
               <th scope="col">Razón</th>
+              <th scope="col"></th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className="text-xs">
             {ingresos
               .sort((a, b) => a.fecha.localeCompare(b.fecha))
               .sort((a, b) => a.urgencia - b.urgencia)
@@ -67,11 +87,25 @@ export default function RecepcionPage() {
                   <td>{new Date(ingreso.fecha).toLocaleString()}</td>
                   <td>{ingreso.paciente}</td>
                   <td>{ingreso.razon}</td>
+                  <td>
+                    <button
+                      onClick={() => setIngresoEdit(ingreso)}
+                      className="p-1 text-xs bg-yellow-600 border-none"
+                    >
+                      Editar
+                    </button>
+                  </td>
                 </tr>
               ))}
           </tbody>
         </table>
       </main>
+      {ingresoEdit && (
+        <IngresoDialogEditForm
+          ingreso={ingresoEdit}
+          onFinish={() => setIngresoEdit(null)}
+        />
+      )}
     </MainLayout>
   )
 }

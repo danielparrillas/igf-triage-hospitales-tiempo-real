@@ -17,7 +17,7 @@ export const getAll = async (req: Request, res: Response): Promise<void> => {
   }
 }
 
-export const save = async (
+export const create = async (
   req: Request & { io?: Server },
   res: Response
 ): Promise<void> => {
@@ -36,5 +36,29 @@ export const save = async (
     res
       .status(500)
       .json({ error: 'Error inespera al intentar guardar el ingreso' })
+  }
+}
+
+export const edit = async (
+  req: Request & { io?: Server },
+  res: Response
+): Promise<void> => {
+  const { id } = req.params
+  const { body } = req
+  try {
+    const ingreso = await prisma.ingreso.update({
+      where: { id: parseInt(id) },
+      data: body
+    })
+
+    // Enviamos el evento `editar_ingreso` a todos los clientes conectados
+    req.io?.emit('editar_ingreso', ingreso)
+
+    res.status(200).json(ingreso)
+  } catch (error) {
+    console.error(error)
+    res
+      .status(500)
+      .json({ error: 'Error inespera al intentar editar el ingreso' })
   }
 }
