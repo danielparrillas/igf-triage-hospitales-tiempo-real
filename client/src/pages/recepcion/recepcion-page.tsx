@@ -5,7 +5,7 @@ import { getIngresos } from '../../services/ingresoService'
 import { useSocket } from '../../hooks/useSocket'
 import { toast } from 'sonner'
 import UrgenciaBadge from '../../components/urgencia-badge'
-import { Link } from 'react-router-dom'
+import { MainLayout } from '../../layouts/main-layout'
 
 export default function RecepcionPage() {
   const [ingresos, setIngresos] = useState<Ingreso[]>([])
@@ -38,25 +38,8 @@ export default function RecepcionPage() {
     }
   }, [socket])
   return (
-    <main className="h-screen bg-purple-50/50">
-      <nav className="px-4 shadow bg-white sticky top-0">
-        <ul>
-          <li>
-            <Link to={'/'}>
-              <h2>Triaje</h2>
-            </Link>
-          </li>
-        </ul>
-        <ul>
-          <li>
-            <Link to={'/recepcion'}>Recepción</Link>
-          </li>
-          <li>
-            <a href="#">Administración</a>
-          </li>
-        </ul>
-      </nav>
-      <section className="p-4 bg-white rounded shadow m-4">
+    <MainLayout>
+      <main className="p-4 bg-white rounded shadow m-4">
         <header className="flex justify-between mb-4">
           <h4>Ingresos</h4>
           <IngresoDialogNewForm />
@@ -88,7 +71,7 @@ export default function RecepcionPage() {
               ))}
           </tbody>
         </table>
-      </section>
-    </main>
+      </main>
+    </MainLayout>
   )
 }

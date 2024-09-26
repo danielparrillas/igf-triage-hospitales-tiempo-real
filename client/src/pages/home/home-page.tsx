@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { MainLayout } from '../../layouts/main-layout'
 
 const salas = [
   {
@@ -71,25 +71,8 @@ export default function HomePage() {
   // }, [navigate])
 
   return (
-    <main className="bg-purple-50/50 h-screen">
-      <nav className="px-4 shadow bg-white sticky top-0">
-        <ul>
-          <li>
-            <Link to={'/'}>
-              <h2>Triaje</h2>
-            </Link>
-          </li>
-        </ul>
-        <ul>
-          <li>
-            <Link to={'/recepcion'}>Recepción</Link>
-          </li>
-          <li>
-            <a href="#">Administración</a>
-          </li>
-        </ul>
-      </nav>
-      <section className="p-4 gap-4 grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+    <MainLayout>
+      <main className="p-4 gap-4 grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {salas.map((sala) => (
           <article key={sala.id}>
             <header>{sala.nombre}</header>
@@ -97,7 +80,7 @@ export default function HomePage() {
             <footer>Estado: {sala.estado}</footer>
           </article>
         ))}
-      </section>
-    </main>
+      </main>
+    </MainLayout>
   )
 }
