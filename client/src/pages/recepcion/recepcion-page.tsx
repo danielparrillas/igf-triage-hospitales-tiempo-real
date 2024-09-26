@@ -18,7 +18,7 @@ export default function RecepcionPage() {
     if (!socket) return
 
     socket.on('nuevo_ingreso', (ingreso: Ingreso) => {
-      // setIngresos((prevIngresos) => [ingreso, ...prevIngresos])
+      setIngresos((prevIngresos) => [ingreso, ...prevIngresos])
       toast.success('Nuevo ingreso registrado')
       console.log('Nuevo ingreso registrado', ingreso)
     })
@@ -45,15 +45,18 @@ export default function RecepcionPage() {
             </tr>
           </thead>
           <tbody>
-            {ingresos.map((ingreso, index) => (
-              <tr key={ingreso.id}>
-                <td scope="row">{index + 1}</td>
-                <td>{UrgenciaEnumLabels[ingreso.urgencia]}</td>
-                <td>{new Date(ingreso.fecha).toLocaleString()}</td>
-                <td>{ingreso.paciente}</td>
-                <td>{ingreso.razon}</td>
-              </tr>
-            ))}
+            {ingresos
+              .sort((a, b) => a.fecha.localeCompare(b.fecha))
+              .sort((a, b) => a.urgencia - b.urgencia)
+              .map((ingreso, index) => (
+                <tr key={ingreso.id}>
+                  <td scope="row">{index + 1}</td>
+                  <td>{UrgenciaEnumLabels[ingreso.urgencia]}</td>
+                  <td>{new Date(ingreso.fecha).toLocaleString()}</td>
+                  <td>{ingreso.paciente}</td>
+                  <td>{ingreso.razon}</td>
+                </tr>
+              ))}
           </tbody>
         </table>
       </main>
