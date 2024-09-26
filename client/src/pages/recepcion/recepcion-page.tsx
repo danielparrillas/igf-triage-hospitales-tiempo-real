@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react'
 import { IngresoDialogNewForm } from './components/ingreso-dialog-new-form'
 import { Ingreso } from '../../types'
 import { getIngresos } from '../../services/ingresoService'
-import { UrgenciaEnumLabels } from '../../types/urgenciaEnum'
 import { useSocket } from '../../hooks/useSocket'
 import { toast } from 'sonner'
+import UrgenciaBadge from '../../components/urgencia-badge'
 
 export default function RecepcionPage() {
   const [ingresos, setIngresos] = useState<Ingreso[]>([])
@@ -19,7 +19,16 @@ export default function RecepcionPage() {
 
     socket.on('nuevo_ingreso', (ingreso: Ingreso) => {
       setIngresos((prevIngresos) => [ingreso, ...prevIngresos])
-      toast.success('Nuevo ingreso registrado')
+      toast.message(`Nuevo ingreso registrado: ${ingreso.paciente}`, {
+        description: (
+          <div className="mt-2 flex  flex-col">
+            <UrgenciaBadge urgencia={ingreso.urgencia} />
+            <time className="text-right text-slate-500 mt-1">
+              {new Date(ingreso.fecha).toLocaleString()}
+            </time>
+          </div>
+        )
+      })
       console.log('Nuevo ingreso registrado', ingreso)
     })
 
@@ -51,7 +60,9 @@ export default function RecepcionPage() {
               .map((ingreso, index) => (
                 <tr key={ingreso.id}>
                   <td scope="row">{index + 1}</td>
-                  <td>{UrgenciaEnumLabels[ingreso.urgencia]}</td>
+                  <td>
+                    <UrgenciaBadge urgencia={ingreso.urgencia} />
+                  </td>
                   <td>{new Date(ingreso.fecha).toLocaleString()}</td>
                   <td>{ingreso.paciente}</td>
                   <td>{ingreso.razon}</td>

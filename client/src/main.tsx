@@ -30,7 +30,7 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <Toaster richColors closeButton />
+    <Toaster richColors />
     <SocketProvider>
       <RouterProvider router={router} />
     </SocketProvider>
