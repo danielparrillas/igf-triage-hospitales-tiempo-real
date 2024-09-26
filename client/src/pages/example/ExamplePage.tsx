@@ -1,14 +1,14 @@
 import { useState, useEffect } from 'react'
 import { connect } from 'socket.io-client'
 
-const socket = connect(import.meta.env.VITE_API_URL)
+const socket = connect(import.meta.env.VITE_WS_URL)
 
 export default function ExamplePage() {
   const [room, setRoom] = useState('')
   const [message, setMessage] = useState('')
   const [messages, setMessages] = useState<string[]>([])
 
-  console.log(import.meta.env.VITE_API_URL)
+  console.log(import.meta.env.VITE_WS_URL)
 
   // Unirse a una sala
   const joinRoom = () => {

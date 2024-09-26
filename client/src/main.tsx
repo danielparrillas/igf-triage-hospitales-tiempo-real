@@ -5,6 +5,9 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import LoginPage from './pages/login/login-page'
 import HomePage from './pages/home/home-page'
 import RecepcionPage from './pages/recepcion/recepcion-page'
+import { Toaster } from 'sonner'
+import { SocketProvider } from './contexts/socket-context'
+import ExamplePage from './pages/example/ExamplePage'
 
 const router = createBrowserRouter([
   {
@@ -18,11 +21,18 @@ const router = createBrowserRouter([
   {
     path: '/recepcion',
     element: <RecepcionPage />
+  },
+  {
+    path: '/example',
+    element: <ExamplePage />
   }
 ])
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <Toaster richColors closeButton />
+    <SocketProvider>
+      <RouterProvider router={router} />
+    </SocketProvider>
   </StrictMode>
 )

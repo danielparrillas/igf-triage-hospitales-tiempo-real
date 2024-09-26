@@ -3,13 +3,30 @@ import { IngresoDialogNewForm } from './components/ingreso-dialog-new-form'
 import { Ingreso } from '../../types'
 import { getIngresos } from '../../services/ingresoService'
 import { UrgenciaEnumLabels } from '../../types/urgenciaEnum'
+import { useSocket } from '../../hooks/useSocket'
+import { toast } from 'sonner'
 
 export default function RecepcionPage() {
   const [ingresos, setIngresos] = useState<Ingreso[]>([])
+  const socket = useSocket()
 
   useEffect(() => {
     getIngresos().then(setIngresos).catch(console.error)
   }, [])
+
+  useEffect(() => {
+    if (!socket) return
+
+    socket.on('nuevo_ingreso', (ingreso: Ingreso) => {
+      // setIngresos((prevIngresos) => [ingreso, ...prevIngresos])
+      toast.success('Nuevo ingreso registrado')
+      console.log('Nuevo ingreso registrado', ingreso)
+    })
+
+    return () => {
+      socket.off('nuevo_ingreso')
+    }
+  }, [socket])
   return (
     <div>
       <main className="p-4">
