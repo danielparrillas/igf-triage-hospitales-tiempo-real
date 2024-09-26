@@ -30,7 +30,9 @@ export function IngresoDialogNewForm() {
 
   return (
     <div>
-      <button onClick={() => setOpen(true)}>Nuevo ingreso</button>
+      <button onClick={() => setOpen(true)} className="p-2">
+        Nuevo ingreso
+      </button>
       <dialog open={open}>
         <article>
           <header>

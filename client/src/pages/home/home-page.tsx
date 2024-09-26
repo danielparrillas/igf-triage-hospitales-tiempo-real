@@ -71,8 +71,8 @@ export default function HomePage() {
   // }, [navigate])
 
   return (
-    <main>
-      <nav className="p-4">
+    <main className="bg-purple-50/50 h-screen">
+      <nav className="px-4 shadow bg-white sticky top-0">
         <ul>
           <li>
             <Link to={'/'}>

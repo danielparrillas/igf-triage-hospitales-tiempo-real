@@ -38,8 +38,8 @@ export default function RecepcionPage() {
     }
   }, [socket])
   return (
-    <main>
-      <nav className="p-4">
+    <main className="h-screen bg-purple-50/50">
+      <nav className="px-4 shadow bg-white sticky top-0">
         <ul>
           <li>
             <Link to={'/'}>
@@ -56,8 +56,8 @@ export default function RecepcionPage() {
           </li>
         </ul>
       </nav>
-      <section className="p-4">
-        <header className="flex justify-between">
+      <section className="p-4 bg-white rounded shadow m-4">
+        <header className="flex justify-between mb-4">
           <h4>Ingresos</h4>
           <IngresoDialogNewForm />
         </header>
