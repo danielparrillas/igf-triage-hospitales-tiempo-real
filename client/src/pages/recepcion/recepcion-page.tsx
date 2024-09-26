@@ -7,6 +7,7 @@ import { toast } from 'sonner'
 import UrgenciaBadge from '../../components/urgencia-badge'
 import { MainLayout } from '../../layouts/main-layout'
 import { IngresoDialogEditForm } from './components/ingreso-dialog-edit-form'
+import { Pencil } from 'lucide-react'
 
 export default function RecepcionPage() {
   const [ingresos, setIngresos] = useState<Ingreso[]>([])
@@ -90,9 +91,9 @@ export default function RecepcionPage() {
                   <td>
                     <button
                       onClick={() => setIngresoEdit(ingreso)}
-                      className="p-1 text-xs bg-yellow-600 border-none"
+                      className="px-1 pt-0 pb-0.5 text-xs bg-yellow-600/80 border-none"
                     >
-                      Editar
+                      <Pencil className="size-3" />
                     </button>
                   </td>
                 </tr>
