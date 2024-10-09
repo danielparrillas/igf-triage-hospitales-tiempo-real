@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { toast, Toaster } from 'sonner'
+import { toast } from 'sonner'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../hooks/useAuth'
 
@@ -36,11 +36,12 @@ export default function LoginPage() {
       })
   }
   return (
-    <div className="h-screen flex items-center justify-center pattern">
+    <div className="h-screen flex items-center justify-center">
       <form
         onSubmit={handleSubmit}
         className="p-4 rounded-md max-w-md w-full shadow-md bg-white"
       >
+        <h3 className="text-center">Login</h3>
         <label htmlFor="email">Usuario</label>
         <input type="email" name="email" id="email" required />
         <label htmlFor="password">Contraseña</label>
@@ -53,7 +54,6 @@ export default function LoginPage() {
           Iniciar sesión
         </button>
       </form>
-      <Toaster />
     </div>
   )
 }

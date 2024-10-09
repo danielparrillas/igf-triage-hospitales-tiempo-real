@@ -5,25 +5,29 @@ import HomePage from './pages/home/home-page'
 import LoginPage from './pages/login/login-page'
 import ProtectedRoute from './components/protected-route'
 import { useAuth } from './hooks/useAuth'
+import { Toaster } from 'sonner'
+import IngresosPage from './pages/recepcion/ingresos-page'
 
 function App() {
   return (
     <AuthProvider>
       <Router>
         <div className="min-h-screen bg-gray-100">
-          <nav className="bg-white shadow-md">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <nav className="bg-white shadow-md sticky top-0">
+            <div className="w-full mx-auto px-4 sm:px-6 lg:px-8">
               <div className="flex justify-between h-16">
                 <div className="flex">
                   <div className="flex-shrink-0 flex items-center">
-                    <Link to="/" className="text-xl font-bold text-indigo-600">
-                      ProtectedApp
+                    <Link
+                      to="/"
+                      className="text-xl font-bold text-indigo-600 no-underline"
+                    >
+                      Triaje
                     </Link>
                   </div>
                   <div className="ml-6 flex space-x-8">
                     <NavLink to="/">Home</NavLink>
-                    <NavLink to="/dashboard">Dashboard</NavLink>
-                    <NavLink to="/profile">Profile</NavLink>
+                    <NavLink to="/ingresos">Ingresos</NavLink>
                   </div>
                 </div>
                 <AuthStatus />
@@ -36,18 +40,10 @@ function App() {
               <Route path="/" element={<HomePage />} />
               <Route path="/login" element={<LoginPage />} />
               <Route
-                path="/dashboard"
+                path="/ingresos"
                 element={
                   <ProtectedRoute>
-                    <div>Dashboard</div>
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/profile"
-                element={
-                  <ProtectedRoute>
-                    <div>Profile</div>
+                    <IngresosPage />
                   </ProtectedRoute>
                 }
               />
@@ -55,6 +51,7 @@ function App() {
           </div>
         </div>
       </Router>
+      <Toaster richColors />
     </AuthProvider>
   )
 }
@@ -63,7 +60,7 @@ function NavLink({ to, children }: { to: string; children: React.ReactNode }) {
   return (
     <Link
       to={to}
-      className="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300"
+      className="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 no-underline"
     >
       {children}
     </Link>
@@ -75,12 +72,13 @@ function AuthStatus() {
 
   if (!auth) {
     return (
-      <Link
-        to="/login"
-        className="text-sm font-medium text-indigo-600 hover:text-indigo-500"
-      >
-        Log in
-      </Link>
+      <div className="flex items-center">
+        <Link to="/login">
+          <button className="bg-transparent border-none text-sm font-medium text-indigo-600 hover:text-indigo-500 text-nowrap">
+            Log in
+          </button>
+        </Link>
+      </div>
     )
   }
 
@@ -91,7 +89,7 @@ function AuthStatus() {
       </span>
       <button
         onClick={logout}
-        className="text-sm font-medium text-indigo-600 hover:text-indigo-500"
+        className="bg-transparent border-none text-sm font-medium text-indigo-600 hover:text-indigo-500 text-nowrap"
       >
         Log out
       </button>
