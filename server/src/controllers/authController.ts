@@ -74,8 +74,14 @@ export const login = async (req: Request, res: Response): Promise<void> => {
       maxAge: 3600000 // 1 hora
     })
 
+    const { password: _, ...userWithoutPassword } = user
+
     res.header('Authorization', `Bearer ${token}`)
-    res.status(200).json({ message: 'Inicio de sesión exitoso', token })
+    res.status(200).json({
+      message: 'Inicio de sesión exitoso',
+      token,
+      user: userWithoutPassword
+    })
   } catch (error) {
     res.status(500).json({ message: 'Error al iniciar sesión' })
   }

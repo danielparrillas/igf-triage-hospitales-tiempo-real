@@ -1,7 +1,13 @@
 import axios from 'axios'
 import { toast, Toaster } from 'sonner'
+import { useAuthStore } from '../../hooks/useAuthStore'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 export default function LoginPage() {
+  const setAuth = useAuthStore((state) => state.setAuth)
+  //get state from react -router
+  const { state } = useLocation()
+  const navigate = useNavigate()
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     const formdata = new FormData(event.currentTarget)
@@ -11,10 +17,14 @@ export default function LoginPage() {
           'Content-Type': 'application/json'
         }
       })
-      .then((response) => {
-        console.log(response)
-        toast.success('Inicio de sesión exitoso')
-        localStorage.setItem('token', response.data.token)
+      .then(({ data }) => {
+        console.log(data)
+        toast.success(data.message)
+        if (data.token && data.user) {
+          setAuth(data.user, data.token)
+          //redirect to the previous page from state
+          navigate(state?.from || '/')
+        }
       })
       .catch((error) => {
         if (error?.response?.data?.message) {
