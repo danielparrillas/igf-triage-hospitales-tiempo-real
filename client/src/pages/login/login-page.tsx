@@ -36,10 +36,10 @@ export default function LoginPage() {
       })
   }
   return (
-    <div className="h-screen flex items-center justify-center">
+    <div className="flex grow items-center justify-center">
       <form
         onSubmit={handleSubmit}
-        className="p-4 rounded-md max-w-md w-full shadow-md bg-white"
+        className="p-4 rounded-md max-w-md w-full shadow-md bg-white py-16"
       >
         <h3 className="text-center">Login</h3>
         <label htmlFor="email">Usuario</label>

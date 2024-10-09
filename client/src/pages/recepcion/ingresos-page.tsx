@@ -57,7 +57,7 @@ export default function IngresosPage() {
     }
   }, [socket])
   return (
-    <main className="p-4 bg-white rounded shadow m-4">
+    <main className="p-4 bg-white rounded shadow">
       <header className="flex justify-between mb-4">
         <h4>Ingresos</h4>
         <IngresoDialogNewForm />
