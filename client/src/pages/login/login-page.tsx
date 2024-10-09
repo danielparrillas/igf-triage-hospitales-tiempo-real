@@ -1,13 +1,13 @@
 import axios from 'axios'
 import { toast, Toaster } from 'sonner'
-import { useAuthStore } from '../../hooks/useAuthStore'
 import { useLocation, useNavigate } from 'react-router-dom'
+import { useAuth } from '../../hooks/useAuth'
 
 export default function LoginPage() {
-  const setAuth = useAuthStore((state) => state.setAuth)
-  //get state from react -router
-  const { state } = useLocation()
   const navigate = useNavigate()
+  const location = useLocation()
+  const auth = useAuth()
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     const formdata = new FormData(event.currentTarget)
@@ -21,9 +21,9 @@ export default function LoginPage() {
         console.log(data)
         toast.success(data.message)
         if (data.token && data.user) {
-          setAuth(data.user, data.token)
-          //redirect to the previous page from state
-          navigate(state?.from || '/')
+          const from = location.state?.from?.pathname || '/'
+          auth.login({ token: data.token, user: data.user })
+          navigate(from, { replace: true })
         }
       })
       .catch((error) => {
@@ -42,7 +42,7 @@ export default function LoginPage() {
         className="p-4 rounded-md max-w-md w-full shadow-md bg-white"
       >
         <label htmlFor="email">Usuario</label>
-        <input type="text" name="email" id="email" required />
+        <input type="email" name="email" id="email" required />
         <label htmlFor="password">Contraseña</label>
         <input type="password" name="password" id="password" required />
 
