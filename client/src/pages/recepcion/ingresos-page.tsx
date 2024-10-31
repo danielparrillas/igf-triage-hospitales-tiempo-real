@@ -5,11 +5,10 @@ import { getIngresos } from '../../services/ingresoService'
 import { useSocket } from '../../hooks/useSocket'
 import { toast } from 'sonner'
 import UrgenciaBadge from '../../components/urgencia-badge'
-import { MainLayout } from '../../layouts/main-layout'
 import { IngresoDialogEditForm } from './components/ingreso-dialog-edit-form'
 import { Pencil } from 'lucide-react'
 
-export default function RecepcionPage() {
+export default function IngresosPage() {
   const [ingresos, setIngresos] = useState<Ingreso[]>([])
   const [ingresoEdit, setIngresoEdit] = useState<Ingreso | null>(null)
   const socket = useSocket()
@@ -58,55 +57,53 @@ export default function RecepcionPage() {
     }
   }, [socket])
   return (
-    <MainLayout>
-      <main className="p-4 bg-white rounded shadow m-4">
-        <header className="flex justify-between mb-4">
-          <h4>Ingresos</h4>
-          <IngresoDialogNewForm />
-        </header>
-        <table>
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Urgencia</th>
-              <th scope="col">Fecha</th>
-              <th scope="col">Paciente</th>
-              <th scope="col">Razón</th>
-              <th scope="col"></th>
-            </tr>
-          </thead>
-          <tbody className="text-xs">
-            {ingresos
-              .sort((a, b) => a.fecha.localeCompare(b.fecha))
-              .sort((a, b) => a.urgencia - b.urgencia)
-              .map((ingreso, index) => (
-                <tr key={ingreso.id}>
-                  <td scope="row">{index + 1}</td>
-                  <td>
-                    <UrgenciaBadge urgencia={ingreso.urgencia} />
-                  </td>
-                  <td>{new Date(ingreso.fecha).toLocaleString()}</td>
-                  <td>{ingreso.paciente}</td>
-                  <td>{ingreso.razon}</td>
-                  <td>
-                    <button
-                      onClick={() => setIngresoEdit(ingreso)}
-                      className="px-1 pt-0 pb-0.5 text-xs bg-yellow-600/80 border-none"
-                    >
-                      <Pencil className="size-3" />
-                    </button>
-                  </td>
-                </tr>
-              ))}
-          </tbody>
-        </table>
-      </main>
+    <main className="p-4 bg-white rounded shadow">
+      <header className="flex justify-between mb-4">
+        <h4>Ingresos</h4>
+        <IngresoDialogNewForm />
+      </header>
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Urgencia</th>
+            <th scope="col">Fecha</th>
+            <th scope="col">Paciente</th>
+            <th scope="col">Razón</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody className="text-xs">
+          {ingresos
+            .sort((a, b) => a.fecha.localeCompare(b.fecha))
+            .sort((a, b) => a.urgencia - b.urgencia)
+            .map((ingreso, index) => (
+              <tr key={ingreso.id}>
+                <td scope="row">{index + 1}</td>
+                <td>
+                  <UrgenciaBadge urgencia={ingreso.urgencia} />
+                </td>
+                <td>{new Date(ingreso.fecha).toLocaleString()}</td>
+                <td>{ingreso.paciente}</td>
+                <td>{ingreso.razon}</td>
+                <td>
+                  <button
+                    onClick={() => setIngresoEdit(ingreso)}
+                    className="px-1 pt-0 pb-0.5 text-xs bg-yellow-600/80 border-none"
+                  >
+                    <Pencil className="size-3" />
+                  </button>
+                </td>
+              </tr>
+            ))}
+        </tbody>
+      </table>
       {ingresoEdit && (
         <IngresoDialogEditForm
           ingreso={ingresoEdit}
           onFinish={() => setIngresoEdit(null)}
         />
       )}
-    </MainLayout>
+    </main>
   )
 }
