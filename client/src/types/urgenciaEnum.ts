@@ -26,7 +26,7 @@ export const UrgenciaMinutesWaitingTime = {
 export const UrgenciaColor = {
   [UrgenciaEnum.Resucitacion]: '#dc2626',
   [UrgenciaEnum.Emergencia]: '#ea580c',
-  [UrgenciaEnum.Urgencia]: '#ca8a04',
+  [UrgenciaEnum.Urgencia]: '#f59e0b',
   [UrgenciaEnum.UrgenciaMenor]: '#16a34a',
   [UrgenciaEnum.SinUrgencia]: '#2563eb'
 }

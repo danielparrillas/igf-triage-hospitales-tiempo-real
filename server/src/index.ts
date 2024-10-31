@@ -7,6 +7,7 @@ import { handleSocketConnection } from './controllers/socketController'
 import * as dotenv from 'dotenv'
 import authRouter from './routes/authRoutes'
 import ingresoRouter from './routes/ingresoRouter'
+import pacientesRouter from './routes/pacienteRouter'
 import { injectSocketIO } from './middlewares/socketInjector'
 
 dotenv.config({ path: '../.env' })
@@ -28,6 +29,7 @@ app.use(injectSocketIO(io))
 //Rutas
 app.use('/api/auth', authRouter)
 app.use('/api/ingresos', ingresoRouter)
+app.use('/api/pacientes', pacientesRouter)
 
 // 1. Configura Express para servir archivos estáticos del build de React
 if (process.env.NODE_ENV === 'production') {

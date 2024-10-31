@@ -15,7 +15,7 @@ export const getIngresos = async (params?: {
       throw new Error('La data debe ser un arreglo')
     }
   } catch (error) {
-    console.error('Error al obtener los ingresos:', error)
+    console.error('Error al obtener los ingresos')
     throw error
   }
 }
@@ -28,7 +28,7 @@ export const postIngreso = async (ingreso: unknown): Promise<Ingreso> => {
     )
     return data
   } catch (error) {
-    console.error('Error al guardar el ingreso:', error)
+    console.error('Error al guardar el ingreso')
     throw error
   }
 }
@@ -44,7 +44,7 @@ export const putIngreso = async (
     )
     return data
   } catch (error) {
-    console.error('Error al editar el ingreso:', error)
+    console.error('Error al editar el ingreso')
     throw error
   }
 }

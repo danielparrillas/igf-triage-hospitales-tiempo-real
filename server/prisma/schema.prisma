@@ -46,7 +46,6 @@ model Paciente {
 
 model Ingreso {
   id          Int        @id @default(autoincrement())
-  dui         String
   fecha       DateTime   @default(now())
   razon       String
   peso        Float
@@ -55,11 +54,11 @@ model Ingreso {
   presion     String
   sintomas    String
   urgencia    Int // 1: Resucitación, 2: Emergencia, 3: Urgencia, 4: Urgencia Menor, 5: Sin Urgencia
-  estado      Int // 0: Pendiente, 1: Datos, 2: En espera, 3: En tratamiento, 4: Dado de alta
+  estado      Int // 0: Pendiente, 1: Datos, 2: En espera, 3: Atención, 4: Finalizado
   doctorId    Int?
   doctor      Doctor?    @relation(fields: [doctorId], references: [id])
-  pacienteId  Int?
-  paciente    Paciente?  @relation(fields: [pacienteId], references: [id])
+  pacienteId  Int
+  paciente    Paciente  @relation(fields: [pacienteId], references: [id])
   enfermeroId Int?
   enfermero   Enfermero? @relation(fields: [enfermeroId], references: [id])
 }

@@ -38,10 +38,7 @@ const ingresoSocket = (io: Server, socket: Socket) => {
       const nuevoIngreso = await prisma.ingreso.create({
         data
       })
-      socket.emit(
-        'message',
-        `Ingreso creado para el paciente: ${data.paciente}`
-      )
+      socket.emit('message', `Ingreso creado`)
     } catch (error) {
       socket.emit('message', 'Error al crear ingreso')
     }

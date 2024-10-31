@@ -2,6 +2,7 @@ import { Request, Response } from 'express'
 import { Ingreso } from '@prisma/client'
 import prisma from '../utils/db'
 import { Server } from 'socket.io'
+import { newIngresoSchema } from '../schemas/ingresoSchemas'
 
 export const getAll = async (req: Request, res: Response): Promise<void> => {
   const {} = req.params
@@ -13,7 +14,7 @@ export const getAll = async (req: Request, res: Response): Promise<void> => {
     console.error(error)
     res
       .status(500)
-      .json({ error: 'Error inespera al intentar recuperar los ingresos' })
+      .json({ error: 'Error inesperado al intentar recuperar los ingresos' })
   }
 }
 
@@ -22,9 +23,22 @@ export const create = async (
   res: Response
 ): Promise<void> => {
   const { body } = req
+
+  const ingresoData = newIngresoSchema.safeParse(body)
+
+  if (!ingresoData.success || !ingresoData.data) {
+    const errores: Record<string, string> = {}
+    ingresoData.error.errors.forEach((err) => {
+      const campo = err.path.join('.')
+      errores[campo] = err.message
+    })
+    res.status(500).json({ error: errores })
+    return
+  }
+
   try {
     const ingreso = await prisma.ingreso.create({
-      data: body
+      data: ingresoData.data
     })
 
     // Enviamos el evento `nuevo_ingreso` a todos los clientes conectados

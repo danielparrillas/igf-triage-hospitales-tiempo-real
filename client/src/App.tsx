@@ -12,8 +12,8 @@ function App() {
   return (
     <AuthProvider>
       <Router>
-        <div className="min-h-screen bg-gray-100 flex flex-col">
-          <nav className="bg-white/30 backdrop-blur shadow-md sticky top-0 w-full z-10">
+        <div className="relative min-h-screen flex flex-col">
+          <nav className="bg-white backdrop-blur shadow sticky top-0 w-full z-10">
             <div className="w-full mx-auto px-4 sm:px-6 lg:px-8">
               <div className="flex justify-between h-16">
                 <div className="flex">
@@ -34,7 +34,6 @@ function App() {
               </div>
             </div>
           </nav>
-
           <div className="w-full flex flex-col grow max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
             <Routes>
               <Route path="/" element={<HomePage />} />
