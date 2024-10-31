@@ -8,21 +8,58 @@ datasource db {
 }
 
 model User {
-  id       Int      @id @default(autoincrement())
-  email    String   @unique
+  id       Int       @id @default(autoincrement())
+  email    String    @unique
   name     String?
   password String?
-  role     Int      @default(0)  // 0: user, 1: admin
+  role     Int       @default(0) // 0: user, 1: admin, 2: enfermero, 3: doctor
+  doctor   Doctor?
+  enfermero Enfermero?
+}
+
+model Doctor {
+  id             Int                  @id @default(autoincrement())
+  nombre         String
+  dui            String
+  ingresos       Ingreso[]
+  userId         Int?                 @unique
+  user           User?                @relation(fields: [userId], references: [id])
+}
+
+model Enfermero {
+  id       Int       @id @default(autoincrement())
+  nombre   String
+  dui      String
   ingresos Ingreso[]
+  userId   Int?      @unique
+  user     User?     @relation(fields: [userId], references: [id])
+}
+
+model Paciente {
+  id              Int       @id @default(autoincrement())
+  nombre          String
+  dui             String
+  fechaNacimiento DateTime
+  sexo            Int // 0: Home, 1: Mujer
+  ingresos        Ingreso[]
 }
 
 model Ingreso {
-  id            Int           @id @default(autoincrement())
-  paciente      String
-  dui           String  
-  fecha         DateTime      @default(now())
-  razon         String
-  urgencia      Int           // 1: Resucitación, 2: Emergencia, 3: Urgencia, 4: Urgencia Menor, 5: Sin Urgencia
-  encargadoId   Int?
-  encargado     User?          @relation(fields: [encargadoId], references: [id])
+  id          Int        @id @default(autoincrement())
+  dui         String
+  fecha       DateTime   @default(now())
+  razon       String
+  peso        Float
+  altura      Float
+  temperatura Float
+  presion     String
+  sintomas    String
+  urgencia    Int // 1: Resucitación, 2: Emergencia, 3: Urgencia, 4: Urgencia Menor, 5: Sin Urgencia
+  estado      Int // 0: Pendiente, 1: Datos, 2: En espera, 3: En tratamiento, 4: Dado de alta
+  doctorId    Int?
+  doctor      Doctor?    @relation(fields: [doctorId], references: [id])
+  pacienteId  Int?
+  paciente    Paciente?  @relation(fields: [pacienteId], references: [id])
+  enfermeroId Int?
+  enfermero   Enfermero? @relation(fields: [enfermeroId], references: [id])
 }
