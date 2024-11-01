@@ -13,7 +13,7 @@ function App() {
     <AuthProvider>
       <Router>
         <div className="relative min-h-screen flex flex-col">
-          <nav className="bg-white backdrop-blur shadow sticky top-0 w-full z-10">
+          <nav className="bg-white shadow sticky top-0 w-full z-10">
             <div className="w-full mx-auto px-4 sm:px-6 lg:px-8">
               <div className="flex justify-between h-16">
                 <div className="flex">
@@ -34,7 +34,7 @@ function App() {
               </div>
             </div>
           </nav>
-          <div className="w-full flex flex-col grow max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+          <div className="relative w-full h-full flex flex-col grow mx-auto">
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/login" element={<LoginPage />} />
@@ -47,10 +47,12 @@ function App() {
                 }
               />
             </Routes>
+            <div className="absolute">
+              <Toaster richColors />
+            </div>
           </div>
         </div>
       </Router>
-      <Toaster richColors />
     </AuthProvider>
   )
 }

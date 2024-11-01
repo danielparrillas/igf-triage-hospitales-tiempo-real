@@ -57,14 +57,14 @@ export default function IngresosPage() {
     }
   }, [socket])
   return (
-    <main>
-      <header className="flex justify-between mb-4">
-        <h4>Ingresos</h4>
+    <main className="flex flex-col grow py-4 sm:px-6 lg:px-8 overflow-hidden min-w-full">
+      <header className="flex gap-4 mb-4">
+        <h4 className="text-gray-800">Ingresos</h4>
         <IngresoDialogNewForm />
       </header>
-      <section className="bg-white p-2 shadow border rounded">
-        <table className="text-xs">
-          <thead>
+      <section className="bg-white grow px-2 shadow border rounded max-h-[75vh] overflow-y-auto">
+        <table className="text-xs w-full min-w-full">
+          <thead className="sticky top-0">
             <tr>
               <th scope="col">#</th>
               <th scope="col">Urgencia</th>

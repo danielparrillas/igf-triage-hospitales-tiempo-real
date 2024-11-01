@@ -56,7 +56,7 @@ export function IngresoDialogNewForm() {
   return (
     <div>
       <button onClick={() => setOpen(true)} className="p-2 text-xs bg-blue-700">
-        Nuevo ingreso
+        Nuevo
       </button>
       <dialog open={open}>
         <article>
