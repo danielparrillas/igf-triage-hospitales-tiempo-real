@@ -22,7 +22,7 @@ export default function IngresosPage() {
 
     socket.on('nuevo_ingreso', (ingreso: Ingreso) => {
       setIngresos((prevIngresos) => [ingreso, ...prevIngresos])
-      toast.message(`Nuevo ingreso registrado`, {
+      toast.message(`Nuevo ingreso registrado: ${ingreso?.paciente?.nombre}`, {
         description: (
           <div className="mt-2 flex  flex-col">
             <UrgenciaBadge urgencia={ingreso.urgencia} />
@@ -32,14 +32,13 @@ export default function IngresosPage() {
           </div>
         )
       })
-      console.log('Nuevo ingreso registrado', ingreso)
     })
 
     socket.on('editar_ingreso', (ingreso: Ingreso) => {
       setIngresos((prevIngresos) =>
         prevIngresos.map((ing) => (ing.id === ingreso.id ? ingreso : ing))
       )
-      toast.message(`Ingreso actualizado: ${ingreso.paciente}`, {
+      toast.message(`Ingreso actualizado: ${ingreso?.paciente?.nombre}`, {
         description: (
           <div className="mt-2 flex flex-col">
             <UrgenciaBadge urgencia={ingreso.urgencia} />
@@ -66,7 +65,9 @@ export default function IngresosPage() {
         <table className="text-xs w-full min-w-full">
           <thead className="sticky top-0">
             <tr>
-              <th scope="col">#</th>
+              <th scope="col" className="h-12">
+                #
+              </th>
               <th scope="col">Urgencia</th>
               <th scope="col">Fecha</th>
               <th scope="col">Paciente</th>
@@ -85,7 +86,7 @@ export default function IngresosPage() {
                     <UrgenciaBadge urgencia={ingreso.urgencia} />
                   </td>
                   <td>{new Date(ingreso.fecha).toLocaleString()}</td>
-                  <td>{ingreso.paciente}</td>
+                  <td>{ingreso.paciente.nombre}</td>
                   <td>{ingreso.razon}</td>
                   <td>
                     <button

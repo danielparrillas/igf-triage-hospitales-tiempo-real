@@ -42,6 +42,8 @@ export function IngresoDialogNewForm() {
     postIngreso(data)
       .then(() => {
         setOpen(false)
+        form.reset()
+        setErrors({})
       })
       .catch((error) => {
         console.error(error)

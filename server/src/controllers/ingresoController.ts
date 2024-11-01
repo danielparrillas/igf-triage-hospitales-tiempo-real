@@ -7,7 +7,9 @@ import { newIngresoSchema } from '../schemas/ingresoSchemas'
 export const getAll = async (req: Request, res: Response): Promise<void> => {
   const {} = req.params
   try {
-    const ingresos = await prisma.ingreso.findMany()
+    const ingresos = await prisma.ingreso.findMany({
+      include: { paciente: true }
+    })
 
     res.status(200).json(ingresos)
   } catch (error) {
@@ -38,7 +40,8 @@ export const create = async (
 
   try {
     const ingreso = await prisma.ingreso.create({
-      data: ingresoData.data
+      data: ingresoData.data,
+      include: { paciente: true }
     })
 
     // Enviamos el evento `nuevo_ingreso` a todos los clientes conectados
