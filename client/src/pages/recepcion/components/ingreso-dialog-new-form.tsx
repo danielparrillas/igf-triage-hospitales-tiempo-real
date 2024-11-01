@@ -1,25 +1,14 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { getLocalDateTimestamp } from '../../../utils/datetimeUtil'
 import { urgenciaValuesLabel } from '../../../types/urgenciaEnum'
 import { postIngreso } from '../../../services/ingresoService'
 import ErrorMessage from '../../../components/error-message'
 import { toast } from 'sonner'
-import { getPacientes, Paciente } from '../../../services/pacienteService'
+import SelectPaciente from '../../../components/select-paciente'
 
 export function IngresoDialogNewForm() {
   const [open, setOpen] = useState(false)
   const [errors, setErrors] = useState<Record<string, string>>({})
-  const [pacientes, setPacientes] = useState<Paciente[]>([])
-
-  useEffect(() => {
-    getPacientes()
-      .then((data) => {
-        setPacientes(data)
-      })
-      .catch(() => {
-        toast.error('Error al obtener los pacientes')
-      })
-  }, [])
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -83,13 +72,7 @@ export function IngresoDialogNewForm() {
               <label>
                 Paciente
                 <ErrorMessage>{errors.pacienteId}</ErrorMessage>
-                <select name="pacienteId" required>
-                  {pacientes.map((paciente) => (
-                    <option key={paciente.id} value={paciente.id}>
-                      {paciente.nombre}
-                    </option>
-                  ))}
-                </select>
+                <SelectPaciente name="pacienteId" required />
               </label>
               <label>
                 Peso

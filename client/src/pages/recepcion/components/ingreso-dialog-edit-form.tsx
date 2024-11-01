@@ -1,8 +1,11 @@
-import { getLocalDateTimestamp } from '../../../utils/datetimeUtil'
 import { urgenciaValuesLabel } from '../../../types/urgenciaEnum'
 import { putIngreso } from '../../../services/ingresoService'
 import { Ingreso } from '../../../types'
 import { toast } from 'sonner'
+import { useState } from 'react'
+import ErrorMessage from '../../../components/error-message'
+import { formatLocalDateTime } from '../../../utils/datetimeUtil'
+import SelectPaciente from '../../../components/select-paciente'
 
 interface Props {
   ingreso: Ingreso
@@ -10,6 +13,8 @@ interface Props {
 }
 
 export function IngresoDialogEditForm({ ingreso, onFinish }: Props) {
+  const [errors, setErrors] = useState<Record<string, string>>({})
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const form = e.currentTarget as HTMLFormElement
@@ -25,6 +30,8 @@ export function IngresoDialogEditForm({ ingreso, onFinish }: Props) {
     putIngreso(ingreso.id, data)
       .then(() => {
         onFinish()
+        form.reset()
+        setErrors({})
       })
       .catch((error) => {
         console.error(error)
@@ -45,41 +52,82 @@ export function IngresoDialogEditForm({ ingreso, onFinish }: Props) {
           <form onSubmit={handleSubmit}>
             <fieldset>
               <label>
-                Paciente
-                <input
-                  name="paciente"
-                  placeholder="Nombre de paciente"
-                  defaultValue={ingreso.paciente}
-                  required
-                />
-              </label>
-              <label>
-                DUI
-                <input
-                  name="dui"
-                  placeholder="DUI"
-                  defaultValue={ingreso.dui}
-                  required
-                />
-              </label>
-              <label>
                 Fecha
+                <ErrorMessage>{errors.fecha}</ErrorMessage>
                 <input
                   type="datetime-local"
                   name="fecha"
-                  defaultValue={getLocalDateTimestamp(ingreso.fecha)}
+                  defaultValue={formatLocalDateTime(ingreso.fecha)}
                   required
                 />
               </label>
               <label>
-                Urgencia
-                <select
-                  name="urgencia"
-                  defaultValue={ingreso.urgencia.toString()}
+                Paciente
+                <SelectPaciente
+                  initialValue={ingreso.paciente.nombre}
+                  selected={ingreso.paciente.id}
+                  name="pacienteId"
                   required
-                >
+                />
+              </label>
+              <label>
+                Peso
+                <ErrorMessage>{errors.peso}</ErrorMessage>
+                <input
+                  defaultValue={ingreso.peso}
+                  name="peso"
+                  type="number"
+                  step="0.01"
+                  required
+                />
+              </label>
+              <label>
+                Altura
+                <ErrorMessage>{errors.altura}</ErrorMessage>
+                <input
+                  defaultValue={ingreso.altura}
+                  name="altura"
+                  type="number"
+                  step="0.01"
+                  required
+                />
+              </label>
+              <label>
+                Temperatura
+                <ErrorMessage>{errors.temperatura}</ErrorMessage>
+                <input
+                  defaultValue={ingreso.temperatura}
+                  name="temperatura"
+                  type="number"
+                  step="0.01"
+                  required
+                />
+              </label>
+              <label>
+                Presión
+                <ErrorMessage>{errors.presion}</ErrorMessage>
+                <input defaultValue={ingreso.presion} name="presion" required />
+              </label>
+              <label>
+                Síntomas
+                <ErrorMessage>{errors.sintomas}</ErrorMessage>
+                <textarea
+                  defaultValue={ingreso.sintomas}
+                  name="sintomas"
+                  placeholder="Síntomas del paciente"
+                  required
+                ></textarea>
+              </label>
+              <label>
+                Urgencia
+                <ErrorMessage>{errors.urgencia}</ErrorMessage>
+                <select name="urgencia" required>
                   {urgenciaValuesLabel.map(({ value, label }) => (
-                    <option key={value} value={value}>
+                    <option
+                      key={value}
+                      value={value}
+                      selected={ingreso.urgencia === value}
+                    >
                       {label}
                     </option>
                   ))}
@@ -87,10 +135,11 @@ export function IngresoDialogEditForm({ ingreso, onFinish }: Props) {
               </label>
               <label>
                 Razón
+                <ErrorMessage>{errors.razon}</ErrorMessage>
                 <textarea
+                  defaultValue={ingreso.razon}
                   name="razon"
                   placeholder="Razón de ingreso"
-                  defaultValue={ingreso.razon}
                   required
                 ></textarea>
               </label>
