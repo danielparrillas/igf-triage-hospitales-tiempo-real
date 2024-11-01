@@ -2,7 +2,7 @@ import { Request, Response } from 'express'
 import { Ingreso } from '@prisma/client'
 import prisma from '../utils/db'
 import { Server } from 'socket.io'
-import { newIngresoSchema } from '../schemas/ingresoSchemas'
+import { ingresoSchema } from '../schemas/ingresoSchemas'
 
 export const getAll = async (req: Request, res: Response): Promise<void> => {
   const {} = req.params
@@ -26,7 +26,7 @@ export const create = async (
 ): Promise<void> => {
   const { body } = req
 
-  const ingresoData = newIngresoSchema.safeParse(body)
+  const ingresoData = ingresoSchema.safeParse(body)
 
   if (!ingresoData.success || !ingresoData.data) {
     const errores: Record<string, string> = {}
@@ -62,10 +62,24 @@ export const edit = async (
 ): Promise<void> => {
   const { id } = req.params
   const { body } = req
+
+  const ingresoData = ingresoSchema.safeParse(body)
+
+  if (!ingresoData.success || !ingresoData.data) {
+    const errores: Record<string, string> = {}
+    ingresoData.error.errors.forEach((err) => {
+      const campo = err.path.join('.')
+      errores[campo] = err.message
+    })
+    res.status(500).json({ error: errores })
+    return
+  }
+
   try {
     const ingreso = await prisma.ingreso.update({
       where: { id: parseInt(id) },
-      data: body
+      data: ingresoData.data,
+      include: { paciente: true }
     })
 
     // Enviamos el evento `editar_ingreso` a todos los clientes conectados

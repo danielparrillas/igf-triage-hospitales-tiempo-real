@@ -1,6 +1,6 @@
 import { z } from '../utils/zod-es'
 
-export const newIngresoSchema = z.object({
+export const ingresoSchema = z.object({
   fecha: z.string().datetime(), // Campo opcional, usa la fecha actual por defecto
   razon: z.string().min(1),
   peso: z.number().positive(),
@@ -15,4 +15,4 @@ export const newIngresoSchema = z.object({
   enfermeroId: z.number().int().optional()
 })
 
-export type NewIngreso = z.infer<typeof newIngresoSchema>
+export type NewIngreso = z.infer<typeof ingresoSchema>

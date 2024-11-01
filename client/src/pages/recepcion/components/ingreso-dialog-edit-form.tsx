@@ -21,11 +21,16 @@ export function IngresoDialogEditForm({ ingreso, onFinish }: Props) {
     const formData = new FormData(form)
     const objFormData = Object.fromEntries(formData)
     const data = {
-      paciente: objFormData.paciente as string,
-      dui: objFormData.dui as string,
       fecha: new Date(objFormData.fecha as string).toISOString(),
+      razon: objFormData.razon as string,
+      peso: +objFormData.peso,
+      altura: +objFormData.altura,
+      temperatura: +objFormData.temperatura,
+      sintomas: objFormData.sintomas as string,
+      presion: objFormData.presion as string,
+      pacienteId: +objFormData.pacienteId,
       urgencia: +objFormData.urgencia,
-      razon: objFormData.razon as string
+      estado: ingreso.estado
     }
     putIngreso(ingreso.id, data)
       .then(() => {
@@ -46,7 +51,7 @@ export function IngresoDialogEditForm({ ingreso, onFinish }: Props) {
           <header>
             <button rel="prev" onClick={onFinish}></button>
             <p>
-              <strong>🗓️ Nuevo ingreso</strong>
+              <strong>🗓️ Editar ingreso</strong>
             </p>
           </header>
           <form onSubmit={handleSubmit}>
