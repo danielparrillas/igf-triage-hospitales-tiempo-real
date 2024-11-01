@@ -37,7 +37,7 @@ export default function LoginPage() {
       })
   }
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <div className="grow flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <div className="bg-indigo-600 mx-auto h-12 w-12 rounded-full flex items-center justify-center">
           <LogIn className="h-8 w-8 text-white" />
