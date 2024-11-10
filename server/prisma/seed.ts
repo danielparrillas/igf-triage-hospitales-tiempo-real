@@ -1,34 +1,5 @@
 import { PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
-async function main() {
-  pacientes.forEach(async (paciente) => {
-    await prisma.paciente.upsert({
-      where: {
-        id: paciente.id
-      },
-      update: {
-        dui: paciente.dui,
-        fechaNacimiento: paciente.fechaNacimiento,
-        nombre: paciente.nombre,
-        sexo: paciente.sexo
-      },
-      create: {
-        dui: paciente.dui,
-        fechaNacimiento: paciente.fechaNacimiento,
-        nombre: paciente.nombre,
-        sexo: paciente.sexo
-      }
-    })
-  })
-}
-main()
-  .then(async () => {
-    await prisma.$disconnect()
-  })
-  .catch(async (e) => {
-    console.error(e)
-    await prisma.$disconnect()
-  })
 
 const pacientes = [
   {
@@ -192,3 +163,33 @@ const pacientes = [
     ingresos: []
   }
 ]
+
+async function main() {
+  pacientes.forEach(async (paciente) => {
+    await prisma.paciente.upsert({
+      where: {
+        id: paciente.id
+      },
+      update: {
+        dui: paciente.dui,
+        fechaNacimiento: paciente.fechaNacimiento,
+        nombre: paciente.nombre,
+        sexo: paciente.sexo
+      },
+      create: {
+        dui: paciente.dui,
+        fechaNacimiento: paciente.fechaNacimiento,
+        nombre: paciente.nombre,
+        sexo: paciente.sexo
+      }
+    })
+  })
+}
+main()
+  .then(async () => {
+    await prisma.$disconnect()
+  })
+  .catch(async (e) => {
+    console.error(e)
+    await prisma.$disconnect()
+  })
