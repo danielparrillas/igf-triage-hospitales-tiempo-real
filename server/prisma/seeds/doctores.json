@@ -1,0 +1,57 @@
+[
+  {
+    "email": "doctor1@example.com",
+    "name": "Juan Pérez",
+    "password": "1234",
+    "role": 3,
+    "doctor": {
+      "nombre": "Dr. Juan Pérez",
+      "dui": "12345678-9",
+      "ingresos": []
+    }
+  },
+  {
+    "email": "doctor2@example.com",
+    "name": "Ana López",
+    "password": "1234",
+    "role": 3,
+    "doctor": {
+      "nombre": "Dra. Ana López",
+      "dui": "98765432-1",
+      "ingresos": []
+    }
+  },
+  {
+    "email": "doctor3@example.com",
+    "name": "Carlos Martínez",
+    "password": "1234",
+    "role": 3,
+    "doctor": {
+      "nombre": "Dr. Carlos Martínez",
+      "dui": "45612378-9",
+      "ingresos": []
+    }
+  },
+  {
+    "email": "doctor4@example.com",
+    "name": "Laura García",
+    "password": "1234",
+    "role": 3,
+    "doctor": {
+      "nombre": "Dra. Laura García",
+      "dui": "12398765-4",
+      "ingresos": []
+    }
+  },
+  {
+    "email": "doctor5@example.com",
+    "name": "Roberto Sánchez",
+    "password": "1234",
+    "role": 3,
+    "doctor": {
+      "nombre": "Dr. Roberto Sánchez",
+      "dui": "78945612-3",
+      "ingresos": []
+    }
+  }
+]
