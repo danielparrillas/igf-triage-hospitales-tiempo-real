@@ -3,7 +3,6 @@
     "email": "enfermero1@example.com",
     "name": "Mario Gómez",
     "password": "1234",
-    "role": 2,
     "enfermero": {
 			"nombre": "Enf. Mario Gómez",
 			"dui": "11223344-5"
@@ -13,7 +12,6 @@
     "email": "enfermero2@example.com",
     "name": "Lucía Fernández",
     "password": "1234",
-    "role": 2,
     "enfermero": {
 			"nombre": "Enf. Lucía Fernández",
 			"dui": "55667788-9"
@@ -23,7 +21,6 @@
 		"email": "enfermero3@example.com",
 		"name": "Carlos Pérez",
 		"password": "1234",
-		"role": 2,
 		"enfermero": {
 			"nombre": "Enf. Carlos Pérez",
 			"dui": "99887766-5"
