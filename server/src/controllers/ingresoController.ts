@@ -1,5 +1,4 @@
 import { Request, Response } from 'express'
-import { Ingreso } from '@prisma/client'
 import prisma from '../utils/db'
 import { Server } from 'socket.io'
 import { ingresoSchema } from '../schemas/ingresoSchemas'
@@ -17,6 +16,27 @@ export const getAll = async (req: Request, res: Response): Promise<void> => {
     res
       .status(500)
       .json({ error: 'Error inesperado al intentar recuperar los ingresos' })
+  }
+}
+
+export const getById = async (req: Request, res: Response): Promise<void> => {
+  const { id } = req.params
+  try {
+    const ingreso = await prisma.ingreso.findUnique({
+      where: { id: parseInt(id) },
+      include: { paciente: true, doctor: true, enfermero: true }
+    })
+
+    if (ingreso) {
+      res.status(200).json(ingreso)
+    } else {
+      res.status(404).json({ error: 'Ingreso no encontrado' })
+    }
+  } catch (error) {
+    console.error(error)
+    res
+      .status(500)
+      .json({ error: 'Error inesperado al intentar recuperar el ingreso' })
   }
 }
 

@@ -6,7 +6,8 @@ import { useSocket } from '../../hooks/useSocket'
 import { toast } from 'sonner'
 import UrgenciaBadge from '../../components/urgencia-badge'
 import { IngresoDialogEditForm } from './components/ingreso-dialog-edit-form'
-import { Pencil } from 'lucide-react'
+import { Eye, Pencil } from 'lucide-react'
+import { Link } from 'react-router-dom'
 
 export default function IngresosPage() {
   const [ingresos, setIngresos] = useState<Ingreso[]>([])
@@ -88,13 +89,19 @@ export default function IngresosPage() {
                   <td>{new Date(ingreso.fecha).toLocaleString()}</td>
                   <td>{ingreso.paciente.nombre}</td>
                   <td>{ingreso.razon}</td>
-                  <td>
+                  <td className="flex gap-2">
                     <button
                       onClick={() => setIngresoEdit(ingreso)}
                       className="px-1 pt-0 pb-0.5 text-xs bg-amber-500 border-none"
                     >
                       <Pencil className="size-3" />
                     </button>
+                    <Link
+                      to={`/ingresos/${ingreso.id}`}
+                      className="px-1 pt-0 pb-0.5 text-xs bg-blue-500 border-none text-white rounded"
+                    >
+                      <Eye className="size-3" />
+                    </Link>
                   </td>
                 </tr>
               ))}

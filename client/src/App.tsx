@@ -7,6 +7,7 @@ import ProtectedRoute from './components/protected-route'
 import { useAuth } from './hooks/useAuth'
 import { Toaster } from 'sonner'
 import IngresosPage from './pages/recepcion/ingresos-page'
+import IngresoPage from './pages/ingreso/ingreso'
 
 function App() {
   return (
@@ -46,6 +47,15 @@ function App() {
                   </ProtectedRoute>
                 }
               />
+              <Route
+                path="/ingresos/:id"
+                element={
+                  <ProtectedRoute>
+                    <IngresoPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route path="*" element={<div>404</div>} />
             </Routes>
             <div className="absolute">
               <Toaster richColors />
