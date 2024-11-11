@@ -6,8 +6,7 @@
     "role": 3,
     "doctor": {
       "nombre": "Dr. Juan Pérez",
-      "dui": "12345678-9",
-      "ingresos": []
+      "dui": "12345678-9"
     }
   },
   {
@@ -17,8 +16,7 @@
     "role": 3,
     "doctor": {
       "nombre": "Dra. Ana López",
-      "dui": "98765432-1",
-      "ingresos": []
+      "dui": "98765432-1"
     }
   },
   {
@@ -28,8 +26,7 @@
     "role": 3,
     "doctor": {
       "nombre": "Dr. Carlos Martínez",
-      "dui": "45612378-9",
-      "ingresos": []
+      "dui": "45612378-9"
     }
   },
   {
@@ -39,8 +36,7 @@
     "role": 3,
     "doctor": {
       "nombre": "Dra. Laura García",
-      "dui": "12398765-4",
-      "ingresos": []
+      "dui": "12398765-4"
     }
   },
   {
@@ -50,8 +46,7 @@
     "role": 3,
     "doctor": {
       "nombre": "Dr. Roberto Sánchez",
-      "dui": "78945612-3",
-      "ingresos": []
+      "dui": "78945612-3"
     }
   }
 ]
