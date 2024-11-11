@@ -1,0 +1,72 @@
+[
+  {
+    "id": 1,
+    "nombre": "Carlos Hernández",
+    "dui": "01234567-8",
+    "fechaNacimiento": "1980-05-12T00:00:00Z",
+    "sexo": 0
+  },
+  {
+    "id": 2,
+    "nombre": "María López",
+    "dui": "12345678-9",
+    "fechaNacimiento": "1992-11-23T00:00:00Z",
+    "sexo": 1
+  },
+  {
+    "id": 3,
+    "nombre": "Ana Martínez",
+    "dui": "23456789-0",
+    "fechaNacimiento": "1985-08-19T00:00:00Z",
+    "sexo": 1
+  },
+  {
+    "id": 4,
+    "nombre": "José Ramírez",
+    "dui": "34567890-1",
+    "fechaNacimiento": "1975-02-28T00:00:00Z",
+    "sexo": 0
+  },
+  {
+    "id": 5,
+    "nombre": "Sofía Gómez",
+    "dui": "45678901-2",
+    "fechaNacimiento": "2000-09-10T00:00:00Z",
+    "sexo": 1
+  },
+  {
+    "id": 6,
+    "nombre": "Juan Pérez",
+    "dui": "56789012-3",
+    "fechaNacimiento": "1990-06-05T00:00:00Z",
+    "sexo": 0
+  },
+  {
+    "id": 7,
+    "nombre": "Elena Castro",
+    "dui": "67890123-4",
+    "fechaNacimiento": "1987-04-14T00:00:00Z",
+    "sexo": 1
+  },
+  {
+    "id": 8,
+    "nombre": "Miguel Álvarez",
+    "dui": "78901234-5",
+    "fechaNacimiento": "1995-12-30T00:00:00Z",
+    "sexo": 0
+  },
+  {
+    "id": 9,
+    "nombre": "Lucía Flores",
+    "dui": "89012345-6",
+    "fechaNacimiento": "1982-01-09T00:00:00Z",
+    "sexo": 1
+  },
+  {
+    "id": 10,
+    "nombre": "Roberto Reyes",
+    "dui": "90123456-7",
+    "fechaNacimiento": "1978-07-25T00:00:00Z",
+    "sexo": 0
+  }
+]
