@@ -8,6 +8,7 @@ import { useAuth } from './hooks/useAuth'
 import { Toaster } from 'sonner'
 import IngresosPage from './pages/recepcion/ingresos-page'
 import IngresoPage from './pages/ingreso/ingreso'
+import IngresosAtendidos from './pages/ingreso/ingresosAtendidos.tsx'
 
 function App() {
   return (
@@ -56,12 +57,16 @@ function App() {
                 }
               />
               <Route path="*" element={<div>404</div>} />
+
+              <Route path={'/ingresosAsignados'} element={<IngresosAtendidos/> }/>
+
             </Routes>
             <div className="absolute">
               <Toaster richColors />
             </div>
           </div>
         </div>
+
       </Router>
     </AuthProvider>
   )

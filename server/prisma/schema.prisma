@@ -8,22 +8,23 @@ datasource db {
 }
 
 model User {
-  id       Int       @id @default(autoincrement())
-  email    String    @unique
-  name     String?
-  password String?
-  role     Int       @default(0) // 0: user, 1: admin, 2: enfermero, 3: doctor
-  doctor   Doctor?
+  id        Int        @id @default(autoincrement())
+  email     String     @unique
+  name      String?
+  password  String?
+  role      Int        @default(0) // 0: user, 1: admin, 2: enfermero, 3: doctor
+  doctor    Doctor?
   enfermero Enfermero?
 }
 
 model Doctor {
-  id             Int                  @id @default(autoincrement())
-  nombre         String
-  dui            String
-  ingresos       Ingreso[]
-  userId         Int?                 @unique
-  user           User?                @relation(fields: [userId], references: [id])
+  id         Int       @id @default(autoincrement())
+  nombre     String
+  dui        String
+  disponible Boolean   @default(true)
+  ingresos   Ingreso[]
+  userId     Int?      @unique
+  user       User?     @relation(fields: [userId], references: [id])
 }
 
 model Enfermero {
@@ -58,7 +59,7 @@ model Ingreso {
   doctorId    Int?
   doctor      Doctor?    @relation(fields: [doctorId], references: [id])
   pacienteId  Int
-  paciente    Paciente  @relation(fields: [pacienteId], references: [id])
+  paciente    Paciente   @relation(fields: [pacienteId], references: [id])
   enfermeroId Int?
   enfermero   Enfermero? @relation(fields: [enfermeroId], references: [id])
 }
