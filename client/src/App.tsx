@@ -9,6 +9,7 @@ import { Toaster } from 'sonner'
 import IngresosPage from './pages/recepcion/ingresos-page'
 import IngresoPage from './pages/ingreso/ingreso'
 import IngresosAtendidos from './pages/ingreso/ingresosAtendidos.tsx'
+import IngresoAsignadoDetails from './pages/doctor/ingresoAsignado.tsx'
 
 function App() {
   return (
@@ -59,7 +60,7 @@ function App() {
               <Route path="*" element={<div>404</div>} />
 
               <Route path={'/ingresosAsignados'} element={<IngresosAtendidos/> }/>
-
+              <Route path={'/detallesDeIngresoAsignado'} element={<IngresoAsignadoDetails/>} />
             </Routes>
             <div className="absolute">
               <Toaster richColors />

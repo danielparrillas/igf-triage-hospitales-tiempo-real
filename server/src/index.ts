@@ -9,6 +9,7 @@ import authRouter from './routes/authRoutes'
 import ingresoRouter from './routes/ingresoRouter'
 import pacientesRouter from './routes/pacienteRouter'
 import { injectSocketIO } from './middlewares/socketInjector'
+import { getIngresoByIdDoctorAsignado } from './controllers/ingresoController'
 
 dotenv.config({ path: '../.env' })
 
@@ -26,10 +27,15 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(injectSocketIO(io))
 
+const auxRouter = express.Router()
+
+auxRouter.get('/:idDoctor', getIngresoByIdDoctorAsignado)
+
 //Rutas
 app.use('/api/auth', authRouter)
 app.use('/api/ingresos', ingresoRouter)
 app.use('/api/pacientes', pacientesRouter)
+app.use('/api/ingresoPacienteAsignado',auxRouter)
 
 // 1. Configura Express para servir archivos estáticos del build de React
 if (process.env.NODE_ENV === 'production') {

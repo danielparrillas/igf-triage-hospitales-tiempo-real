@@ -14,3 +14,6 @@ export const getAll = async (req: Request, res: Response): Promise<void> => {
       .json({ error: 'Error inesperado al intentar recuperar los pacientes' })
   }
 }
+
+
+

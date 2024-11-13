@@ -5,12 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="89851bcf-132c-4498-a8f6-f5474323f405" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/client/src/components/IngresoList.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/src/pages/ingreso/ingresosAtendidos.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/services/doctorService.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/pages/doctor/ingresoAsignado.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/controllers/doctorController.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/prisma/schema.prisma" beforeDir="false" afterPath="$PROJECT_DIR$/server/prisma/schema.prisma" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/pages/ingreso/index.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/ingreso/index.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/services/ingresoService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/services/ingresoService.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/controllers/ingresoController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/controllers/ingresoController.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/controllers/pacienteController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/controllers/pacienteController.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/controllers/socketController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/controllers/socketController.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/routes/ingresoRouter.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/routes/ingresoRouter.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,6 +53,7 @@
     "HTTP Request.rest-api_6 | #1.executor": "Run",
     "HTTP Request.rest-api_7 | #1.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "doctoresv2",
     "last_opened_file_path": "C:/Users/pc/OneDrive/Documents/GitHub/igf-triage-hospitales-tiempo-real",
     "node.js.detected.package.eslint": "true",
@@ -59,7 +65,7 @@
     "npm.dev (1).executor": "Run",
     "npm.dev.executor": "Run",
     "npm.start.executor": "Run",
-    "ts.external.directory.path": "C:\\Users\\pc\\OneDrive\\Documents\\GitHub\\igf-triage-hospitales-tiempo-real\\client\\node_modules\\typescript\\lib",
+    "ts.external.directory.path": "C:\\Users\\pc\\OneDrive\\Documents\\GitHub\\igf-triage-hospitales-tiempo-real\\server\\node_modules\\typescript\\lib",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -69,7 +75,7 @@
     </key>
   </component>
   <component name="RunManager" selected="npm.dev">
-    <configuration name="rest-api_7 | #1" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/rest-api_7.http" requestIdentifier="#1" runType="Run single request">
+    <configuration name="rest-api_7 | #1" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/rest-api_7.http" runType="Run single request">
       <method v="2" />
     </configuration>
     <configuration name="build" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
@@ -125,7 +131,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-WS-242.23726.96" />
+        <option value="bundled-js-predefined-d6986cc7102b-e768b9ed790e-JavaScript-WS-243.21565.180" />
       </set>
     </attachedChunks>
   </component>
@@ -146,7 +152,9 @@
       <workItem from="1731325439213" duration="7039000" />
       <workItem from="1731380416754" duration="1242000" />
       <workItem from="1731381844922" duration="80000" />
-      <workItem from="1731390286031" duration="7414000" />
+      <workItem from="1731390286031" duration="7562000" />
+      <workItem from="1731470501085" duration="98000" />
+      <workItem from="1731470609810" duration="6866000" />
     </task>
     <servers />
   </component>

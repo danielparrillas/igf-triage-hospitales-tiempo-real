@@ -1,3 +1,5 @@
+import { UrgenciaEnum } from '../../types/urgenciaEnum.ts'
+
 export interface Paciente {
   id: number
   nombre: string
@@ -35,6 +37,6 @@ export interface Ingreso {
   urgencia: UrgenciaEnum
   estado: number
   paciente: Paciente
-  doctor: Doctor | null
-  enfermero: Enfermero | null
+  doctor?: Doctor
+  enfermero?: Enfermero
 }
