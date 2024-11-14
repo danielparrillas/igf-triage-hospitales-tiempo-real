@@ -1,11 +1,7 @@
 import { Request, Response, NextFunction } from 'express'
 import jwt from 'jsonwebtoken'
 
-export const verifyToken = (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+export const verifyToken = (req: any, res: Response, next: NextFunction) => {
   const token = req.cookies?.token
 
   if (!token) {

@@ -41,7 +41,7 @@ if (process.env.NODE_ENV === 'production') {
     res.sendFile(path.resolve(clientBuildPath, 'index.html'))
   })
 }
-const PORT = process.env.PORT || 4000
+const PORT = process.env.PORT || 3000
 server.listen(PORT, () =>
   console.log(`Servidor corriendo en el puerto ${PORT}`)
 )

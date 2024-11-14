@@ -8,7 +8,7 @@ export default function IngresoCard({ ingreso }: Props) {
   return (
     <div className="rounded-md p-4 shadow">
       <header>
-        <h3>{ingreso.paciente}</h3>
+        <h3>{ingreso.paciente.nombre}</h3>
         <p>{ingreso.fecha}</p>
       </header>
       <section>
