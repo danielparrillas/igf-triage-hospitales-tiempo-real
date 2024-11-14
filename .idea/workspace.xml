@@ -5,17 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="89851bcf-132c-4498-a8f6-f5474323f405" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/client/src/pages/doctor/ingresoAsignado.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/controllers/doctorController.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/pages/ingreso/index.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/ingreso/index.d.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/services/ingresoService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/services/ingresoService.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/pages/doctor/ingresoAsignado.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/doctor/ingresoAsignado.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/pages/ingreso/ingresosAtendidos.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/ingreso/ingresosAtendidos.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/controllers/ingresoController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/controllers/ingresoController.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/controllers/pacienteController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/controllers/pacienteController.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/controllers/socketController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/controllers/socketController.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/routes/ingresoRouter.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/routes/ingresoRouter.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/services/doctorService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/services/doctorService.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,28 +42,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "HTTP Request.rest-api_5 | #1.executor": "Run",
-    "HTTP Request.rest-api_6 | #1.executor": "Run",
-    "HTTP Request.rest-api_7 | #1.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "doctoresv2",
-    "last_opened_file_path": "C:/Users/pc/OneDrive/Documents/GitHub/igf-triage-hospitales-tiempo-real",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "npm.build.executor": "Run",
-    "npm.dev (1).executor": "Run",
-    "npm.dev.executor": "Run",
-    "npm.start.executor": "Run",
-    "ts.external.directory.path": "C:\\Users\\pc\\OneDrive\\Documents\\GitHub\\igf-triage-hospitales-tiempo-real\\server\\node_modules\\typescript\\lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;HTTP Request.rest-api_5 | #1.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.rest-api_6 | #1.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.rest-api_7 | #1.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;doctoresv2&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/pc/OneDrive/Documents/GitHub/igf-triage-hospitales-tiempo-real&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;npm.build.executor&quot;: &quot;Run&quot;,
+    &quot;npm.dev (1).executor&quot;: &quot;Run&quot;,
+    &quot;npm.dev.executor&quot;: &quot;Run&quot;,
+    &quot;npm.start.executor&quot;: &quot;Run&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\pc\\OneDrive\\Documents\\GitHub\\igf-triage-hospitales-tiempo-real\\server\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\pc\OneDrive\Documents\GitHub\igf-triage-hospitales-tiempo-real" />
@@ -155,6 +150,8 @@
       <workItem from="1731390286031" duration="7562000" />
       <workItem from="1731470501085" duration="98000" />
       <workItem from="1731470609810" duration="6866000" />
+      <workItem from="1731502640452" duration="4012000" />
+      <workItem from="1731555785457" duration="13621000" />
     </task>
     <servers />
   </component>
@@ -168,6 +165,12 @@
           <url>file://$PROJECT_DIR$/server/prisma/seed.ts</url>
           <line>9</line>
           <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/server/src/controllers/socketController.ts</url>
+          <line>100</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="7" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

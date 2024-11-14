@@ -118,15 +118,15 @@ export const edit = async (
 
 export const getIngresoByIdDoctorAsignado = async (request: Request, res: Response): Promise<void> => {
   const {idDoctor } = request.params
-  console.log()
+  console.log(idDoctor)
 
   if (!idDoctor) {
     res.status(404).json({ error: 'Ingreso no encontrado' })
   }
 
-  let ingresoAsinadoConDoctor:Ingreso | null = await prisma.ingreso.findUnique({
-    where: { id: Number(idDoctor) },
-    include: { paciente: true }
+  let ingresoAsinadoConDoctor:Ingreso | null = await prisma.ingreso.findFirst({
+    where: { doctorId: Number(idDoctor),estado:2 },
+    include: { paciente: true,doctor:true }
   })
 
   if (!ingresoAsinadoConDoctor) {

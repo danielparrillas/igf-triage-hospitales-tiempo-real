@@ -7,19 +7,18 @@ import { emit } from 'nodemon'
 export const handleSocketConnection = (io: Server) => {
   io.on('connection', (socket: Socket) => {
 
-    (async () => {
-      await assignIngresosToDoctors();
-      const updatedIngresos = await prisma.ingreso.findMany({ where: { estado: 2 },
-        include:{doctor:true,paciente:true} });
-      io.emit('updateIngresos', updatedIngresos);
-    })();
+   asignacionDeIngresosConDoctoresDispo(io)
 
 
     exampleSocket(io, socket)
     ingresoSocket(io, socket)
     doctorSockets(io,socket)
   })
+
+  io.on('disconnect', (socket: Socket) => {console.log('se desconecto')})
 }
+
+
 
 const exampleSocket = (io: Server, socket: Socket) => {
   socket.on('join_room', (room: string) => {
@@ -99,32 +98,41 @@ const doctorSockets = (io:Server,socket:Socket) => {
   })
 
 
-  socket.on('doctorDisponibilidadCambio', async (doctor:Doctor) => {
+  socket.on('consultaPorIngresoTerminada',async (id)=>{
 
-
-    if(doctor.disponible == true){
-      let allIngresos:Ingreso[] = await prisma.ingreso.findMany({ where:{estado:2}, orderBy:[ {urgencia:'asc'} ] } )
-
-      if(allIngresos.length > 0){
-        let ingresoUrgenteEnAtencionProxima:Ingreso = allIngresos[0]
-
-        const ingresoAsignado:Ingreso = await prisma.ingreso.update({
-          where:{id:ingresoUrgenteEnAtencionProxima.id},
-          data:{estado:4,doctorId:doctor.id},
-          include:{ doctor:true, paciente:true }
-        })
-
-        await prisma.doctor.update( { where:{id:doctor.id}, data:{disponible:false} } )
-        socket.emit('ingresoAsignadoConDoctorDisponible',ingresoAsignado)
-
-      }
+    await prisma.ingreso.update({
+      where:{id:id},
+      data:{estado:4}
+    })
 
 
 
 
-      await notifyAllIngresosWaitingChanged(socket,io)
+  })
 
-    }
+// se us
+  socket.on('consultaFinalizo', async ({idDoctor,idIngreso}) => {
+
+    console.log('Id doctor')
+    console.log(idDoctor)
+    console.log("id ingreso")
+    console.log(idIngreso)
+
+    const doctor = await prisma.doctor.update({
+      where:{id:idDoctor},
+      data:{disponible:true}
+    })
+    asignacionDeIngresosConDoctoresDispo(io)
+
+    await prisma.ingreso.update({where:{id:idIngreso} , data:{estado:4}})
+
+
+    let nuevoIngresoAsignado: Ingreso | null = await prisma.ingreso.findFirst({where:{AND:[{estado:2},{doctorId:idDoctor}]
+        }
+    ,include:{paciente:true,doctor:true}});
+
+    console.log(nuevoIngresoAsignado)
+    io.emit("nuevoPacienteAsignado",nuevoIngresoAsignado)
 
 
 
@@ -132,17 +140,21 @@ const doctorSockets = (io:Server,socket:Socket) => {
   })
 
 
-  socket.on('doctorIsDoneWithPatient',async (doctor:Doctor) =>{
+  socket.on('disponibilidadDoctorCambioManual',async (doctor:Doctor) =>{
     const doctorAvailableAgain:Doctor = await prisma.doctor.update({where:{id:doctor.id},data:{disponible:true}})
   })
 }
 
 
-//Notifica a todos los subscribers sobre los cambios en la lista de ingresos(pacientes) en espera
-const notifyAllIngresosWaitingChanged = async (socket:Socket,io:Server) => {
 
-  const allIngresosWaiting:Ingreso[] = await prisma.ingreso.findMany({where:{estado:2}})
 
-  io.emit('listaDeIngresosEsperandoHaCambiado',allIngresosWaiting)
 
+const asignacionDeIngresosConDoctoresDispo = (io:Server)=>{
+  (async () => {
+    await assignIngresosToDoctors();
+    const updatedIngresos = await prisma.ingreso.findMany({ where: { estado: 2 },
+      include:{doctor:true,paciente:true} });
+
+    io.emit('updateIngresos', updatedIngresos);
+  })();
 }

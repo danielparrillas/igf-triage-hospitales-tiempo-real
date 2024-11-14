@@ -10,8 +10,10 @@ const IngresosAtendidos: React.FC = () => {
 
   useEffect(() => {
     socket?.on('updateIngresos', (updatedIngresos: Ingreso[]) => {
+
       setIngresos(updatedIngresos);
     });
+
 
     return () => {
       socket?.off('updateIngresos');
