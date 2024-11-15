@@ -56,5 +56,10 @@ export const getIngresoConDoctorAsignado = async (idDoctor:number):Promise<Ingre
 
   return data;
 
+}
 
+export const getIngresosAsignados = async ():Promise<Ingreso[]> =>{
+  const {data} = await axios.get(`${import.meta.env.VITE_API_URL}/ingresos/asignaciones/ingresosAsignados`)
+
+  return data
 }

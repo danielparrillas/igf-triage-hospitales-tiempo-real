@@ -4,6 +4,7 @@ import { Ingreso,Doctor,Paciente } from '../ingreso'
 import { getIngresoConDoctorAsignado } from '../../services/ingresoService.ts'
 import UrgenciaBadge from '../../components/urgencia-badge.tsx'
 import { useSocket } from '../../hooks/useSocket.ts'
+import { getDoctor } from '../../services/doctorService.ts'
 
 
 
@@ -14,20 +15,22 @@ const IngresoAsignadoDetails: React.FC = () => {
   const [ingreso, setIngreso] = useState<Ingreso | null>(null);
   const [loading, setLoading] = useState(true);
   const socket = useSocket();
-
+  const [doctor, setDoctor] = useState<Doctor | null>(null);
 
   useEffect(() => {
 
 
     const fetchIngreso = async () => {
       try {
-        const doctorId = JSON.parse(localStorage.getItem("auth") ??'').user.id
-        /*console.log("id de doctor");
-        console.log(JSON.parse(localStorage.getItem("auth") ??'').user.id);*/
+        const userId = JSON.parse(localStorage.getItem("auth") ??'').user.id
+        console.log("id de doctor");
+        console.log(JSON.parse(localStorage.getItem("auth") ??'').user);
 
+      const doctor = await getDoctor(userId)
+        setDoctor(doctor)
+        console.log("doctor", doctor)
 
-
-        const response:Ingreso  =  await getIngresoConDoctorAsignado(doctorId);
+        const response:Ingreso  =  await getIngresoConDoctorAsignado(doctor.id);
 
         setIngreso(response)
       } catch (error) {
@@ -38,9 +41,7 @@ const IngresoAsignadoDetails: React.FC = () => {
     };
 
     socket?.on('nuevoPacienteAsignado',(nuevoIngresoAsignado:Ingreso) =>{
-      console.log(nuevoIngresoAsignado)
       if(nuevoIngresoAsignado == null ) {
-        console.log("No se encontraron ingreso")
         setIngreso(null);
       }else{
         setIngreso(nuevoIngresoAsignado)
@@ -59,7 +60,7 @@ const IngresoAsignadoDetails: React.FC = () => {
 
 
   const finalizarConsultaPorIngreso = () => {
-    const idDoctor = JSON.parse(localStorage.getItem("auth") ??'').user.id
+    const idDoctor = doctor?.id
     const idIngreso = ingreso?.id
     socket?.emit('consultaFinalizo',{idDoctor,idIngreso})
 

@@ -3,15 +3,15 @@ import prisma from '../utils/db'
 import { Doctor } from '@prisma/client'
 
 
-const getDoctor = async (req: Request, res: Response) => {
-  const { id } = req.params
+export const getDoctor = async (req: Request, res: Response) => {
+  const { idUser } = req.params
   let doctor:Doctor | null
 
-  if (!id) {
+  if (!idUser) {
      res.status(404).json({ error: 'No hay encontrado' })
   }
 
-  doctor = await prisma.doctor.findUnique({where: {id: Number(id)}})
+  doctor = await prisma.doctor.findUnique({where: {userId: Number(idUser)}})
 
   if (!doctor) {
      res.status(404).json({ error: 'No hay encontrado' })

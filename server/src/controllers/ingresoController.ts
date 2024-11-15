@@ -125,7 +125,7 @@ export const getIngresoByIdDoctorAsignado = async (request: Request, res: Respon
   }
 
   let ingresoAsinadoConDoctor:Ingreso | null = await prisma.ingreso.findFirst({
-    where: { doctorId: Number(idDoctor),estado:2 },
+    where: { doctorId: Number(idDoctor),estado:3 },
     include: { paciente: true,doctor:true }
   })
 
@@ -135,5 +135,24 @@ export const getIngresoByIdDoctorAsignado = async (request: Request, res: Respon
   }
 
   res.status(200).json(ingresoAsinadoConDoctor)
+
+}
+
+export const getIngresosAsignados = async (request: Request, res: Response): Promise<void> => {
+
+  const ingresosAsignados: Ingreso[] = await prisma.ingreso.findMany({
+    where:{estado:3},
+    include: { paciente: true,doctor:true }
+  })
+
+  console.log("ingresos get ingresos")
+  console.log(ingresosAsignados)
+
+  if(!ingresosAsignados) {
+    res.status(404).json({ error: 'No existen ingresos asignados' })
+    return
+  }
+
+  res.status(200).json(ingresosAsignados)
 
 }

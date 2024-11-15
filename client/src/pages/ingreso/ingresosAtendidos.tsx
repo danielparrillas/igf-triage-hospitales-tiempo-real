@@ -3,12 +3,18 @@ import React, { useEffect, useState } from 'react';
 import { useSocket } from '../../hooks/useSocket.ts'
 import IngresoList from '../../components/IngresoList.tsx'
 import { Ingreso } from './index'
+import { getIngresos, getIngresosAsignados } from '../../services/ingresoService.ts'
 
 const IngresosAtendidos: React.FC = () => {
-  const [ingresos, setIngresos] = useState<Ingreso[]>([]);
+  const [ingresos, setIngresos] = useState<Ingreso[] | null>([]);
   const socket = useSocket()
 
-  useEffect(() => {
+  useEffect( () => {
+
+    getIngresosAsignados().then(ingresos => setIngresos(ingresos));
+
+
+
     socket?.on('updateIngresos', (updatedIngresos: Ingreso[]) => {
 
       setIngresos(updatedIngresos);
@@ -16,6 +22,7 @@ const IngresosAtendidos: React.FC = () => {
 
 
     return () => {
+
       socket?.off('updateIngresos');
     };
   }, [socket]);

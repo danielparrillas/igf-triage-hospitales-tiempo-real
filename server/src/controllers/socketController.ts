@@ -113,10 +113,6 @@ const doctorSockets = (io:Server,socket:Socket) => {
 // se us
   socket.on('consultaFinalizo', async ({idDoctor,idIngreso}) => {
 
-    console.log('Id doctor')
-    console.log(idDoctor)
-    console.log("id ingreso")
-    console.log(idIngreso)
 
     const doctor = await prisma.doctor.update({
       where:{id:idDoctor},
@@ -127,11 +123,11 @@ const doctorSockets = (io:Server,socket:Socket) => {
     await prisma.ingreso.update({where:{id:idIngreso} , data:{estado:4}})
 
 
-    let nuevoIngresoAsignado: Ingreso | null = await prisma.ingreso.findFirst({where:{AND:[{estado:2},{doctorId:idDoctor}]
+    let nuevoIngresoAsignado: Ingreso | null = await prisma.ingreso.findFirst({where:{AND:[{estado:3},{doctorId:idDoctor}]
         }
     ,include:{paciente:true,doctor:true}});
 
-    console.log(nuevoIngresoAsignado)
+
     io.emit("nuevoPacienteAsignado",nuevoIngresoAsignado)
 
 
@@ -152,7 +148,7 @@ const doctorSockets = (io:Server,socket:Socket) => {
 const asignacionDeIngresosConDoctoresDispo = (io:Server)=>{
   (async () => {
     await assignIngresosToDoctors();
-    const updatedIngresos = await prisma.ingreso.findMany({ where: { estado: 2 },
+    const updatedIngresos = await prisma.ingreso.findMany({ where: { estado: 3 },
       include:{doctor:true,paciente:true} });
 
     io.emit('updateIngresos', updatedIngresos);

@@ -12,6 +12,8 @@ import IngresosAtendidos from './pages/ingreso/ingresosAtendidos.tsx'
 import IngresoAsignadoDetails from './pages/doctor/ingresoAsignado.tsx'
 
 function App() {
+
+
   return (
     <AuthProvider>
       <Router>
@@ -31,6 +33,10 @@ function App() {
                   <div className="ml-6 flex space-x-8">
                     <NavLink to="/">Home</NavLink>
                     <NavLink to="/ingresos">Ingresos</NavLink>
+                    <NavLink to={"/ingresosAsignados"}>Ingresos asignados</NavLink>
+                    <NavLink to={"/detallesDeIngresoAsignado"}>Mi ingreso asignado</NavLink>
+
+
                   </div>
                 </div>
                 <AuthStatus />
