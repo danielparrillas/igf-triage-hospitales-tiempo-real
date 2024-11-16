@@ -65,8 +65,10 @@ function App() {
               />
               <Route path="*" element={<div>404</div>} />
 
-              <Route path={'/ingresosAsignados'} element={<IngresosAtendidos/> }/>
-              <Route path={'/detallesDeIngresoAsignado'} element={<IngresoAsignadoDetails/>} />
+              <Route path={'/ingresosAsignados'} element={
+                <ProtectedRoute><IngresosAtendidos/></ProtectedRoute>
+                 }/>
+              <Route path={'/detallesDeIngresoAsignado'} element={ <ProtectedRoute><IngresoAsignadoDetails/></ProtectedRoute>} />
             </Routes>
             <div className="absolute">
               <Toaster richColors />

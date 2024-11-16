@@ -5,11 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="89851bcf-132c-4498-a8f6-f5474323f405" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/client/src/components/estado-badge.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/IngresoList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/IngresoList.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/pages/doctor/ingresoAsignado.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/doctor/ingresoAsignado.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/controllers/socketController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/controllers/socketController.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,7 +65,7 @@
       <recent name="C:\Users\pc\OneDrive\Documents\GitHub\igf-triage-hospitales-tiempo-real" />
     </key>
   </component>
-  <component name="RunManager" selected="npm.dev">
+  <component name="RunManager" selected="npm.dev (1)">
     <configuration name="rest-api_7 | #1" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/rest-api_7.http" runType="Run single request">
       <method v="2" />
     </configuration>
@@ -114,8 +111,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="npm.dev" />
         <item itemvalue="npm.dev (1)" />
+        <item itemvalue="npm.dev" />
         <item itemvalue="npm.start" />
         <item itemvalue="npm.build" />
         <item itemvalue="HTTP Request.rest-api_7 | #1" />
@@ -152,6 +149,7 @@
       <workItem from="1731502640452" duration="4012000" />
       <workItem from="1731555785457" duration="21766000" />
       <workItem from="1731675958475" duration="3289000" />
+      <workItem from="1731723687768" duration="414000" />
     </task>
     <servers />
   </component>
@@ -178,7 +176,6 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/client/src/components/urgencia-badge.tsx</url>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="10" />
         </line-breakpoint>
       </breakpoints>
