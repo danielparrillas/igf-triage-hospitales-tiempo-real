@@ -133,7 +133,7 @@ const doctorSockets = (io:Server,socket:Socket) => {
 
     io.emit("nuevoPacienteAsignado",nuevoIngresoAsignado)
 
-assignIngresosToDoctors()
+
 
 
   })
