@@ -26,7 +26,8 @@ const IngresoAsignadoDetails: React.FC = () => {
         const user = JSON.parse(localStorage.getItem("auth") ??'').user
 
         if(user.role == 0 || user.role == 1){
-
+          console.log('user role')
+      console.log(user.role)
           return}
 
       const doctor = await getDoctor(user.id)
@@ -57,10 +58,8 @@ const IngresoAsignadoDetails: React.FC = () => {
 
     console.log("socket cambio")
 
-    return () =>{
-      socket?.off('nuevoPacienteAsignado');
-    }
-  }, [socket]);
+
+  }, [socket,ingreso]);
 
 
   const finalizarConsultaPorIngreso = () => {
