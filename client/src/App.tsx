@@ -8,8 +8,12 @@ import { useAuth } from './hooks/useAuth'
 import { Toaster } from 'sonner'
 import IngresosPage from './pages/recepcion/ingresos-page'
 import IngresoPage from './pages/ingreso/ingreso'
+import IngresosAtendidos from './pages/ingreso/ingresosAtendidos.tsx'
+import IngresoAsignadoDetails from './pages/doctor/ingresoAsignado.tsx'
 
 function App() {
+
+
   return (
     <AuthProvider>
       <Router>
@@ -29,6 +33,10 @@ function App() {
                   <div className="ml-6 flex space-x-8">
                     <NavLink to="/">Home</NavLink>
                     <NavLink to="/ingresos">Ingresos</NavLink>
+                    <NavLink to={"/ingresosAsignados"}>Ingresos asignados</NavLink>
+                    <NavLink to={"/detallesDeIngresoAsignado"}>Mi ingreso asignado</NavLink>
+
+
                   </div>
                 </div>
                 <AuthStatus />
@@ -56,12 +64,18 @@ function App() {
                 }
               />
               <Route path="*" element={<div>404</div>} />
+
+              <Route path={'/ingresosAsignados'} element={
+                <ProtectedRoute><IngresosAtendidos/></ProtectedRoute>
+                 }/>
+              <Route path={'/detallesDeIngresoAsignado'} element={ <ProtectedRoute><IngresoAsignadoDetails/></ProtectedRoute>} />
             </Routes>
             <div className="absolute">
               <Toaster richColors />
             </div>
           </div>
         </div>
+
       </Router>
     </AuthProvider>
   )

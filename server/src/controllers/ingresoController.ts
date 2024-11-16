@@ -2,6 +2,7 @@ import { Request, Response } from 'express'
 import prisma from '../utils/db'
 import { Server } from 'socket.io'
 import { ingresoSchema } from '../schemas/ingresoSchemas'
+import { Ingreso } from '@prisma/client'
 
 export const getAll = async (req: Request, res: Response): Promise<void> => {
   const {} = req.params
@@ -112,4 +113,46 @@ export const edit = async (
       .status(500)
       .json({ error: 'Error inespera al intentar editar el ingreso' })
   }
+}
+
+
+export const getIngresoByIdDoctorAsignado = async (request: Request, res: Response): Promise<void> => {
+  const {idDoctor } = request.params
+  console.log(idDoctor)
+
+  if (!idDoctor) {
+    res.status(404).json({ error: 'Ingreso no encontrado' })
+  }
+
+  let ingresoAsinadoConDoctor:Ingreso | null = await prisma.ingreso.findFirst({
+    where: { doctorId: Number(idDoctor),estado:3 },
+    include: { paciente: true,doctor:true }
+  })
+
+  if (!ingresoAsinadoConDoctor) {
+    res.status(404).json({ error: 'Ingreso no encontrado' })
+    return
+  }
+
+  res.status(200).json(ingresoAsinadoConDoctor)
+
+}
+
+export const getIngresosAsignados = async (request: Request, res: Response): Promise<void> => {
+
+  const ingresosAsignados: Ingreso[] = await prisma.ingreso.findMany({
+    where:{estado:3},
+    include: { paciente: true,doctor:true }
+  })
+
+  console.log("ingresos get ingresos")
+  console.log(ingresosAsignados)
+
+  if(!ingresosAsignados) {
+    res.status(404).json({ error: 'No existen ingresos asignados' })
+    return
+  }
+
+  res.status(200).json(ingresosAsignados)
+
 }

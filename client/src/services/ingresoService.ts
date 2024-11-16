@@ -48,3 +48,18 @@ export const putIngreso = async (
     throw error
   }
 }
+
+export const getIngresoConDoctorAsignado = async (idDoctor:number):Promise<Ingreso> =>{
+
+  const {data} = await axios.get(`${import.meta.env.VITE_API_URL}/ingresoPacienteAsignado/${idDoctor}`)
+
+
+  return data;
+
+}
+
+export const getIngresosAsignados = async ():Promise<Ingreso[]> =>{
+  const {data} = await axios.get(`${import.meta.env.VITE_API_URL}/ingresos/asignaciones/ingresosAsignados`)
+
+  return data
+}

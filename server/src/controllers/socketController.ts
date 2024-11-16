@@ -1,14 +1,24 @@
 import { Server, Socket } from 'socket.io'
 import prisma from '../utils/db'
-import { Ingreso } from '@prisma/client'
+import { Doctor, Ingreso } from '@prisma/client'
+import { assignIngresosToDoctors } from '../services/doctorService'
+import { emit } from 'nodemon'
 
 export const handleSocketConnection = (io: Server) => {
   io.on('connection', (socket: Socket) => {
-    console.log('Usuario conectado:', socket.id)
+
+   asignacionDeIngresosConDoctoresDispo(io)
+
+
     exampleSocket(io, socket)
     ingresoSocket(io, socket)
+    doctorSockets(io,socket)
   })
+
+  io.on('disconnect', (socket: Socket) => {console.log('se desconecto')})
 }
+
+
 
 const exampleSocket = (io: Server, socket: Socket) => {
   socket.on('join_room', (room: string) => {
@@ -27,9 +37,12 @@ const exampleSocket = (io: Server, socket: Socket) => {
   })
 }
 
-const ingresoSocket = (io: Server, socket: Socket) => {
+const ingresoSocket = (io: Server, socket:Socket) => {
   socket.on('ingresos', () => {
     socket.join('ingresos')
+
+
+
     console.log()
   })
 
@@ -42,5 +55,105 @@ const ingresoSocket = (io: Server, socket: Socket) => {
     } catch (error) {
       socket.emit('message', 'Error al crear ingreso')
     }
+  })}
+
+//TO-DO ccambiar nombre de doctorConnected a doctorAvailabilityChanged
+const doctorSockets = (io:Server,socket:Socket) => {
+
+  socket.on('doctorConnected',async (doctor:Doctor) =>{
+//El estado '2' indica que estan 'En espera' y se obtienen todos los ingresos en este estado
+   let allIngresos:Ingreso[] = await prisma.ingreso.findMany({ where:{estado:2}, orderBy:[ {urgencia:'asc'} ] } )
+
+  //Se obtiene el primer ingreso en orden del urgencia a visitia regular
+  let ingresoUrgenteEnAtencionProxima:Ingreso = allIngresos[0]
+
+  //Se actualiza el ingreso seleccionado y se cambia su estado y se asignado un doctor a este
+  const ingresoAsignado:Ingreso = await prisma.ingreso.update({
+    where:{id:ingresoUrgenteEnAtencionProxima.id},
+    data:{estado:4,doctorId:doctor.id},
+    include:{
+      doctor:true,
+      paciente:true
+    }
   })
+
+//Se cambia la disponibilidad del doctor
+  prisma.doctor.update({
+    where:{id:doctor.id},
+    data:{disponible:false}
+  })
+
+  //Emitimos un evento que muestre al doctor que fue asignado al paciente del ingreso
+  //socket.emit('ingresoAsignadoConDoctorConectado',ingresoAsignado);
+
+
+    io.emit('ingresosWaitingListChanged',)
+
+  //!!!SI el ingreso ya esta en atencion quiere decir que un doctor ya fue asignado
+
+  //emitimos un evento que actualize en el front end la lista de ingresos en espera
+
+  //io.emit('ingresosWaitingChanged',allIngresos.slice(1,allIngresos.length))
+
+  })
+
+
+  socket.on('consultaPorIngresoTerminada',async (id)=>{
+
+    await prisma.ingreso.update({
+      where:{id:id},
+      data:{estado:4}
+    })
+
+
+
+
+  })
+
+// se us
+  socket.on('consultaFinalizo', async ({idDoctor,idIngreso}) => {
+
+
+    const doctor = await prisma.doctor.update({
+      where:{id:idDoctor},
+      data:{disponible:true}
+    })
+    asignacionDeIngresosConDoctoresDispo(io)
+
+    await prisma.ingreso.update({where:{id:idIngreso} , data:{estado:4}})
+
+    console.log('doctorId',idDoctor)
+    console.log('idIngreso',idIngreso)
+
+    let nuevoIngresoAsignado: Ingreso | null = await prisma.ingreso.findFirst({where:{AND:[{doctorId:idDoctor,estado:3}]
+        }
+    ,include:{paciente:true,doctor:true}});
+
+    console.log("nuevoIngresoAsignado",nuevoIngresoAsignado)
+
+    io.emit("nuevoPacienteAsignado",nuevoIngresoAsignado)
+
+
+
+
+  })
+
+
+  socket.on('disponibilidadDoctorCambioManual',async (doctor:Doctor) =>{
+    const doctorAvailableAgain:Doctor = await prisma.doctor.update({where:{id:doctor.id},data:{disponible:true}})
+  })
+}
+
+
+
+
+
+const asignacionDeIngresosConDoctoresDispo = (io:Server)=>{
+  (async () => {
+    await assignIngresosToDoctors();
+    const updatedIngresos = await prisma.ingreso.findMany({ where: { estado: 3 },
+      include:{doctor:true,paciente:true} });
+
+    io.emit('updateIngresos', updatedIngresos);
+  })();
 }
