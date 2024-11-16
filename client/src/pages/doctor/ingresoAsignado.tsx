@@ -5,6 +5,7 @@ import { getIngresoConDoctorAsignado } from '../../services/ingresoService.ts'
 import UrgenciaBadge from '../../components/urgencia-badge.tsx'
 import { useSocket } from '../../hooks/useSocket.ts'
 import { getDoctor } from '../../services/doctorService.ts'
+import BadgeEstado from '../../components/estado-badge.tsx'
 
 
 
@@ -22,11 +23,13 @@ const IngresoAsignadoDetails: React.FC = () => {
 
     const fetchIngreso = async () => {
       try {
-        const userId = JSON.parse(localStorage.getItem("auth") ??'').user.id
-        console.log("id de doctor");
-        console.log(JSON.parse(localStorage.getItem("auth") ??'').user);
+        const user = JSON.parse(localStorage.getItem("auth") ??'').user
 
-      const doctor = await getDoctor(userId)
+        if(user.role == 0 || user.role == 1){
+
+          return}
+
+      const doctor = await getDoctor(user.id)
         setDoctor(doctor)
         console.log("doctor", doctor)
 
@@ -42,6 +45,7 @@ const IngresoAsignadoDetails: React.FC = () => {
 
     socket?.on('nuevoPacienteAsignado',(nuevoIngresoAsignado:Ingreso) =>{
       if(nuevoIngresoAsignado == null ) {
+
         setIngreso(null);
       }else{
         setIngreso(nuevoIngresoAsignado)
@@ -62,6 +66,7 @@ const IngresoAsignadoDetails: React.FC = () => {
   const finalizarConsultaPorIngreso = () => {
     const idDoctor = doctor?.id
     const idIngreso = ingreso?.id
+    console.log(idDoctor);
     socket?.emit('consultaFinalizo',{idDoctor,idIngreso})
 
 
@@ -72,7 +77,13 @@ const IngresoAsignadoDetails: React.FC = () => {
   }
 
   if (!ingreso) {
-    return <p>Error: Ingreso no encontrado.</p>;
+    return <div className="flex items-center justify-center h-screen bg-gray-100">
+      <div className="text-center p-6 bg-white shadow-md rounded-md">
+        <h1 className="text-xl font-semibold text-gray-800">
+          No tienes ingresos asignados
+        </h1>
+      </div>
+    </div>
   }
 
   return (<>
@@ -94,7 +105,7 @@ const IngresoAsignadoDetails: React.FC = () => {
                 <p><strong>Síntomas:</strong> {ingreso.sintomas}</p>
                 <p><strong>Urgencia:</strong> <UrgenciaBadge urgencia={ingreso.urgencia} /></p>
                 <p>
-                  <strong>Estado:</strong> {['Pendiente', 'Datos', 'En espera', 'Atención', 'Finalizado'][ingreso.estado]}
+                  <BadgeEstado estado={ingreso.estado} />
                 </p>
               </div>
             </div>

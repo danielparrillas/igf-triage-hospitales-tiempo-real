@@ -2,6 +2,7 @@
 import React from 'react';
 import {Ingreso} from '../pages/ingreso/index'
 import UrgenciaBadge from './urgencia-badge.tsx'
+import BadgeEstado from './estado-badge.tsx'
 
 
 
@@ -23,13 +24,11 @@ const IngresoList: React.FC<IngresoListProps> = ({ ingresos }) => {
                 Paciente : <span className="text-blue-500">{ingreso.paciente.nombre}</span>
               </p>
               <p className="text-gray-600">
-                Doctor ID: <span
+                Doctor : <span
                 className="text-green-500">{ingreso.doctor ? ingreso.doctor.nombre : 'No asignado'}</span>
               </p>
             </div>
-            <p className="text-sm font-medium text-gray-500">
-              Estado: {ingreso.estado}
-            </p>
+            <BadgeEstado estado={ingreso.estado} />
 
             <p className="text-sm text-gray-600">
               Urgencia:

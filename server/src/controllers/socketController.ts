@@ -122,11 +122,14 @@ const doctorSockets = (io:Server,socket:Socket) => {
 
     await prisma.ingreso.update({where:{id:idIngreso} , data:{estado:4}})
 
+    console.log('doctorId',idDoctor)
+    console.log('idIngreso',idIngreso)
 
-    let nuevoIngresoAsignado: Ingreso | null = await prisma.ingreso.findFirst({where:{AND:[{estado:3},{doctorId:idDoctor}]
+    let nuevoIngresoAsignado: Ingreso | null = await prisma.ingreso.findFirst({where:{AND:[{doctorId:idDoctor,estado:3}]
         }
     ,include:{paciente:true,doctor:true}});
 
+    console.log("nuevoIngresoAsignado",nuevoIngresoAsignado)
 
     io.emit("nuevoPacienteAsignado",nuevoIngresoAsignado)
 
